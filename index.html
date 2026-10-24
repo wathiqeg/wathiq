@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>وساطة أصول صناعية في مصر</title>
+<meta name="description" content="وساطة بين أصحاب الأصول الصناعية والمشترين في مصر: ماكينات وخطوط إنتاج وفائض مصانع. بتفويض مكتوب وعمولة عند نجاح الصفقة فقط.">
+<meta name="theme-color" content="#0f1f29">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap">
+<style>
+:root{
+  --bg:#f4f5f6; --surface:#ffffff; --ink:#0f1f29; --muted:#5d6b75; --line:#d9dee2;
+  --brand:#0f1f29; --brand-fg:#f4f5f6; --accent:#b5701a; --soft:#e7ebee; --warn:#8a5a14;
+  --f-display:'Amiri',Georgia,serif; --f-body:'IBM Plex Sans Arabic',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1218;--surface:#121c24;--ink:#eaeef1;--muted:#9aa8b2;--line:#25333d;--brand:#eaeef1;--brand-fg:#0b1218;--accent:#e0a050;--soft:#16222b;--warn:#e0a050;color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-weight:400;font-size:16px;line-height:1.8;padding-bottom:66px}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;line-height:1.3;margin:0;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;inset-inline-start:8px;top:8px;z-index:100;padding:12px 16px;background:var(--brand);color:var(--brand-fg);transform:translateY(-200%)}
+.skip:focus{transform:none}
+.draft{background:#fff3d6;color:#5a3d00;font-size:13px;text-align:center;padding:8px 14px;border-bottom:1px solid #e8d49a}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:20px}
+header.bar{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+header.bar .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
+.logo{display:flex;align-items:center;gap:10px;margin-inline-end:auto;text-decoration:none;font-family:var(--f-display);font-size:23px;font-weight:700}
+.logo svg{width:30px;height:30px;color:var(--accent)}
+nav.main{display:flex;gap:22px}
+nav.main a{font-size:14.5px;text-decoration:none}
+nav.main a:hover{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--brand);background:var(--brand);color:var(--brand-fg);padding:12px 24px;font-size:15px;font-weight:500;text-decoration:none;cursor:pointer;min-height:48px;text-align:center}
+.btn.alt{background:transparent;color:var(--ink)}
+.btn.light{background:transparent;color:#fff;border-color:#fff}
+.btn.solidlight{background:#fff;color:#0f1f29;border-color:#fff}
+.btn:hover{opacity:.88}
+.menu{display:none;background:none;border:1px solid var(--line);padding:8px 14px;font-size:14px;min-height:40px}
+@media (max-width:960px){
+  nav.main{display:none;position:absolute;top:100%;inset-inline:0;background:var(--bg);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:6px 20px 14px}
+  nav.main.on{display:flex}
+  nav.main a{padding:13px 0;border-bottom:1px solid var(--line);font-size:15px}
+  .menu{display:block}
+  header.bar .btn{display:none}
+}
+/* hero: rotating slides */
+.hero{position:relative;height:min(86vh,760px);min-height:560px;background:#0b1620;overflow:hidden;color:#fff}
+.hero .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+.hero .slide.on{opacity:1}
+.hero .slide svg{width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,20,.45) 0%,rgba(6,14,20,.5) 38%,rgba(6,14,20,.9) 100%)}
+.hero .in{position:absolute;inset:auto 0 0 0;z-index:2;padding-block:0 60px}
+.kicker{font-size:15px;font-weight:500;opacity:.95;display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:32px;height:2px;background:var(--accent)}
+#slideLabel{transition:opacity .4s}
+.hero h1{font-size:clamp(32px,6vw,64px);margin:16px 0 16px;max-width:20ch;line-height:1.35}
+.hero p.lead{max-width:56ch;font-size:18px;opacity:.94;font-weight:300}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.dots{position:absolute;z-index:3;inset-inline-start:20px;bottom:26px;display:flex;gap:8px}
+.dots button{width:26px;height:20px;background:none;border:0;padding:0;cursor:pointer;display:flex;align-items:center}
+.dots button::before{content:"";display:block;width:100%;height:2px;background:rgba(255,255,255,.4)}
+.dots button[aria-current="true"]::before{background:#fff}
+.trust{border-bottom:1px solid var(--line)}
+.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.trust div{padding:22px 16px;border-inline-start:1px solid var(--line)}
+.trust div:first-child{border-inline-start:0;padding-inline-start:0}
+.trust b{display:block;font-family:var(--f-display);font-size:22px;font-weight:700;line-height:1.3}
+.trust span{font-size:14px;color:var(--muted)}
+@media (max-width:700px){.trust .wrap{grid-template-columns:1fr 1fr}.trust div:nth-child(3){border-inline-start:0;padding-inline-start:0}.trust div:nth-child(n+3){border-top:1px solid var(--line)}}
+section.s{padding-block:88px 8px}
+.eyebrow{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.eyebrow b{font-family:var(--f-display);font-size:22px}
+.s h2{font-size:clamp(28px,4vw,46px);max-width:24ch}
+.s .intro{margin-top:14px;color:var(--muted);max-width:62ch;font-size:17px;font-weight:300}
+.note{margin-top:22px;font-size:14px;color:var(--muted)}
+/* listings */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+@media (max-width:900px){.cards{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cards{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column}
+.card .ph{aspect-ratio:4/3;background:var(--soft);overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover}
+.card .bd{padding:18px}
+.card h3{font-size:24px;margin-bottom:6px}
+.card .meta{font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px;margin-bottom:12px}
+.empty{margin-top:36px;border:1px dashed var(--line);background:var(--surface);padding:34px 24px;display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.empty svg{width:64px;height:64px;color:var(--accent);flex:none}
+.empty p{max-width:56ch;color:var(--muted)}
+/* types */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}
+@media (max-width:900px){.tiles{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.tiles{grid-template-columns:1fr}}
+.tile{background:var(--surface);border:1px solid var(--line);padding:24px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s,transform .2s}
+.tile:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tile svg{width:44px;height:44px;color:var(--accent)}
+.tile h3{font-size:24px}
+.tile p{font-size:15px;color:var(--muted);flex:1}
+.tile .links{display:flex;gap:16px;font-size:14.5px}
+.tile .links a{border-bottom:1px solid var(--ink);text-decoration:none;padding-block:6px}
+/* steps */
+.steps{list-style:none;margin:36px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
+.steps li{padding:26px 0;padding-inline-end:26px;margin-inline-end:26px;border-inline-end:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps li:nth-child(3n){border-inline-end:0;margin-inline-end:0}
+.steps .n{font-family:var(--f-display);font-size:40px;color:var(--accent);line-height:1;display:block;margin-bottom:8px}
+.steps h3{font-size:24px;margin-bottom:6px}
+.steps p{color:var(--muted);font-size:15px}
+@media (max-width:800px){.steps{grid-template-columns:1fr}.steps li{border-inline-end:0;margin-inline-end:0;padding-inline-end:0}}
+/* privacy levels */
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+@media (max-width:900px){.levels{grid-template-columns:1fr}}
+.lvl{border:1px solid var(--line);background:var(--surface);padding:26px;position:relative}
+.lvl::before{content:"";position:absolute;inset-inline:0;top:0;height:4px;background:var(--accent);opacity:var(--o,1)}
+.lvl:nth-child(1){--o:.35}.lvl:nth-child(2){--o:.7}
+.lvl h3{font-size:24px;margin-bottom:12px}
+.lvl dt{font-size:13px;font-weight:600;color:var(--accent);margin-top:12px}
+.lvl dd{margin:2px 0 0;color:var(--muted);font-size:15px}
+/* terms table */
+.tablewrap{margin-top:36px;border-top:1px solid var(--ink)}
+.row{display:grid;grid-template-columns:220px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.row b{font-family:var(--f-display);font-size:21px}
+.row span{color:var(--muted)}
+.ph-tag{background:#fff3d6;color:#5a3d00;padding:1px 8px;font-size:14px}
+@media (prefers-color-scheme:dark){.ph-tag{background:#3a2c0d;color:#f2d79a}}
+@media (max-width:620px){.row{grid-template-columns:1fr;gap:2px}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px}
+@media (max-width:800px){.two{grid-template-columns:1fr}}
+.box{border:1px solid var(--line);background:var(--surface);padding:26px}
+.box h3{font-size:25px;margin-bottom:6px}
+.box ul{margin:12px 0 0;padding-inline-start:22px;color:var(--muted);font-size:15px}
+.box li{margin-bottom:6px}
+/* stats / proof (render only when real data exists) */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0;margin-top:36px;border-top:1px solid var(--ink)}
+.stats div{padding:22px 0;padding-inline-end:20px}
+.stats b{font-family:var(--f-display);font-size:44px;color:var(--accent);line-height:1;display:block}
+.quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:36px}
+.quotes blockquote{margin:0;border:1px solid var(--line);background:var(--surface);padding:24px}
+.quotes cite{display:block;margin-top:12px;font-style:normal;font-size:14px;color:var(--muted)}
+.logos{display:flex;flex-wrap:wrap;gap:28px;align-items:center;margin-top:30px}
+.logos img{height:40px;width:auto;filter:grayscale(1);opacity:.75}
+/* faq */
+details{border-bottom:1px solid var(--line);padding:18px 0}
+details:first-of-type{border-top:1px solid var(--ink);margin-top:36px}
+summary{cursor:pointer;font-family:var(--f-display);font-size:22px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px;min-height:32px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent);font-size:26px;line-height:1}
+details[open] summary::after{content:"\2212"}
+details p{margin-top:10px;color:var(--muted);max-width:70ch}
+/* register */
+.rfq{background:var(--brand);color:var(--brand-fg);margin-top:96px;padding-block:80px}
+.rfq h2{font-size:clamp(30px,4.4vw,52px);max-width:18ch}
+.rfq .intro{opacity:.85;margin:14px 0 30px;font-size:17px;font-weight:300;max-width:62ch}
+.tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.tabs button{background:transparent;color:inherit;border:1px solid currentColor;padding:11px 22px;min-height:46px;cursor:pointer;font-size:15px;opacity:.8}
+.tabs button[aria-selected="true"]{background:var(--brand-fg);color:var(--brand);opacity:1}
+.rfq form{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:880px}
+.rfq form[hidden]{display:none}
+.rfq label{display:block;font-size:14px;opacity:.9}
+.rfq label.full{grid-column:1/-1}
+.rfq input,.rfq select,.rfq textarea{width:100%;margin-top:6px;background:transparent;border:1px solid currentColor;color:inherit;padding:12px;border-radius:0;font-size:16px}
+.rfq input::placeholder,.rfq textarea::placeholder{color:inherit;opacity:.55}
+.rfq select option{color:#0f1f29;background:#fff}
+.rfq textarea{min-height:100px;resize:vertical}
+.rfq .btn{background:var(--brand-fg);color:var(--brand);border-color:var(--brand-fg)}
+.rfq .btn.alt{background:transparent;color:inherit;border-color:currentColor}
+.rfq .fine{font-size:13.5px;opacity:.8;grid-column:1/-1}
+.rfq .err{grid-column:1/-1;color:#ffb36b;font-size:15px}
+.rfq .acts{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
+@media (prefers-color-scheme:dark){.rfq .err{color:#9a5b00}}
+@media (max-width:620px){.rfq form{grid-template-columns:1fr}}
+.contact{margin-top:36px;display:flex;gap:14px 40px;flex-wrap:wrap}
+.contact a{color:inherit}
+.hp{position:absolute;inset-inline-start:-9999px;width:1px;height:1px;opacity:0}
+footer{padding-block:36px 24px;color:var(--muted);font-size:13.5px}
+footer .legal{max-width:80ch;margin-bottom:12px}
+footer details{border:0;padding:6px 0}
+footer details:first-of-type{border:0;margin:0}
+footer summary{font-family:var(--f-body);font-size:14px;font-weight:600;color:var(--ink)}
+footer summary::after{font-size:18px}
+footer ul{margin:8px 0 0;padding-inline-start:20px}
+.sticky{position:fixed;inset:auto 0 0 0;z-index:25;background:var(--bg);border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));display:flex;gap:8px}
+.sticky .btn{flex:1;padding:10px 8px;min-height:46px;font-size:14px}
+@media (min-width:961px){.sticky{display:none}body{padding-bottom:0}}
+.toast{position:fixed;inset-inline-start:50%;bottom:84px;transform:translateX(50%);background:var(--brand);color:var(--brand-fg);padding:10px 18px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:70}
+.toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+html[lang="en"]{--f-display:'Source Serif 4',Georgia,serif;--f-body:'IBM Plex Sans',system-ui,sans-serif}
+html[lang="en"] body{line-height:1.65}
+.hero .slide img{width:100%;height:100%;object-fit:cover;display:block}
+.lang{background:none;border:1px solid var(--line);color:var(--ink);padding:6px 12px;min-height:40px;min-width:48px;font:600 14px var(--f-body);cursor:pointer}
+html[dir="ltr"] .toast{transform:translateX(-50%)}
+.sticky{transform:translateY(110%);transition:transform .3s}
+.sticky.on{transform:none}
+.fab{position:fixed;inset-inline-end:16px;bottom:22px;z-index:30;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.28);text-decoration:none}
+.fab svg{width:30px;height:30px}
+@media (max-width:960px){.fab{bottom:calc(78px + env(safe-area-inset-bottom,0px))}}
+.fab:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.card.pend .ph.ico{display:flex;align-items:center;justify-content:center;color:var(--accent);position:relative;background:linear-gradient(135deg,var(--soft),var(--surface))}
+.card.pend .ph.ico svg{width:72px;height:72px;opacity:.8}
+.card .badge{position:absolute;inset-block-start:12px;inset-inline-start:12px;background:var(--brand);color:var(--brand-fg);font-size:12px;font-weight:600;padding:3px 10px}
+.sk{display:grid;gap:8px;margin:4px 0 14px}
+.sk i{display:block;height:9px;background:linear-gradient(90deg,var(--soft) 25%,var(--line) 50%,var(--soft) 75%);background-size:200% 100%;animation:shim 1.8s linear infinite}
+.sk i:nth-child(2){width:80%}.sk i:nth-child(3){width:55%}
+@keyframes shim{to{background-position:-200% 0}}
+.pnote{font-size:14px;color:var(--muted);margin:0 0 14px}
+.card.pend .btn{margin-top:auto}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+<div class="draft" id="draftBar">نسخة مسودة. لا تُشارك الرابط قبل أن يراجع محامٍ نصوص الإخلاء والخصوصية، واحذف هذا الشريط عند النشر.</div>
+<header class="bar"><div class="wrap">
+  <a class="logo" href="#top" aria-label="الصفحة الرئيسية"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="16" cy="16" r="5.5"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M7 7l3 3M22 22l3 3M25 7l-3 3M10 22l-3 3"/></svg><span class="brand">[اسم الخدمة]</span></a>
+  <nav class="main" id="nav" aria-label="القائمة الرئيسية">
+    <a href="#listings" id="navListings">الفرص</a><a href="#types">ما نتعامل فيه</a><a href="#import">الاستيراد</a><a href="#how">كيف نعمل</a><a href="#privacy">الخصوصية</a><a href="#terms">الشروط</a><a href="#verify">التحقق</a><a href="#about">من نحن</a><a href="#faq">أسئلة</a>
+  </nav>
+  <a class="btn" href="#register">قدّم طلبك</a>
+  <button class="lang" id="lang" type="button" aria-label="Switch language">EN</button>
+  <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="nav">القائمة</button>
+</div></header>
+
+<main id="main">
+<section class="hero" id="top" aria-roledescription="carousel" aria-label="صور توضيحية للفئات">
+  <!-- Illustrative stock photos. Replace with real, anonymised, owner-authorised photos when available. -->
+  <div class="slide on" data-label="منشآت صناعية" role="group" aria-label="1 / 6"><img src="assets/hero/plant.jpg" alt="" fetchpriority="high" decoding="async"></div>
+  <div class="slide" data-label="خطوط إنتاج" role="group" aria-label="2 / 6"><img src="assets/hero/line.jpg" alt="" loading="lazy" decoding="async"></div>
+  <div class="slide" data-label="نواقل ومعدات مناولة" role="group" aria-label="3 / 6"><img src="assets/hero/conveyors.jpg" alt="" loading="lazy" decoding="async"></div>
+  <div class="slide" data-label="صوامع وتخزين" role="group" aria-label="4 / 6"><img src="assets/hero/silos.jpg" alt="" loading="lazy" decoding="async"></div>
+  <div class="slide" data-label="نقل ولوجستيات" role="group" aria-label="5 / 6"><img src="assets/hero/trucks.jpg" alt="" loading="lazy" decoding="async"></div>
+  <div class="slide" data-label="ناقلات وصهاريج" role="group" aria-label="6 / 6"><img src="assets/hero/tanker.jpg" alt="" loading="lazy" decoding="async"></div>
+  <div class="in"><div class="wrap">
+    <div class="kicker"><span id="slideLabel">منشآت صناعية</span> · وساطة أصول صناعية · مصر</div>
+    <h1>وساطة بين أصحاب الأصول الصناعية والمشترين في مصر</h1>
+    <p class="lead">ماكينات، خطوط إنتاج، وفائض مصانع في مختلف القطاعات الصناعية. بتفويض مكتوب من المالك، وعمولة عند نجاح الصفقة فقط.</p>
+    <div class="cta"><a class="btn solidlight" href="#register" data-pick="seller">أريد بيع أصل</a><a class="btn light" href="#register" data-pick="buyer">أبحث عن أصل</a></div>
+  </div></div>
+  <div class="dots" id="dots" role="group" aria-label="التنقل بين الصور"></div>
+</section>
+
+<section class="trust" aria-label="التزاماتنا"><div class="wrap">
+  <div><b>تفويض مكتوب</b><span>قبل عرض أي أصل</span></div>
+  <div><b>عمولة عند نجاح الصفقة</b><span>الخدمة بلا رسوم قبل البيع</span></div>
+  <div><b>ثلاثة مستويات كشف</b><span>تتحكم في كل مستوى</span></div>
+  <div><b>لا نحتفظ بأموالك</b><span>الدفع بين الطرفين مباشرة</span></div>
+</div></section>
+
+<section class="s" id="listings"><div class="wrap">
+  <div class="eyebrow"><b>٠١</b> الفرص المعروضة</div>
+  <h2>أصول معروضة بتفويض أصحابها</h2>
+  <p class="intro">كل فرصة بوصف عام وصور لا تدل على المالك أو العنوان.</p>
+  <div class="cards" id="cards">
+    <article class="card pend"><div class="ph ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 40V22l9-5v5l9-5v5l9-5v5l9-5v23z"/><path d="M20 40v-9h8v9"/></svg><span class="badge">جاري تحميل البيانات</span></div><div class="bd"><h3>مصنع غزل للبيع</h3><div class="meta"><span>غزل ونسيج</span><span>العاشر من رمضان</span><span>بيع</span></div><div class="sk" aria-hidden="true"><i></i><i></i><i></i></div><p class="pnote">جاري تحميل باقي البيانات: الطاقة والحالة ونطاق السعر. تُعرض بعد استكمال المراجعة.</p><a class="btn alt" href="#register" data-pick="buyer" data-interest="مصنع غزل للبيع - العاشر من رمضان">أرغب في هذه الفرصة</a></div></article>
+    <article class="card pend"><div class="ph ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 40V22l9-5v5l9-5v5l9-5v5l9-5v23z"/><path d="M20 40v-9h8v9"/></svg><span class="badge">جاري تحميل البيانات</span></div><div class="bd"><h3>مصنع صناعات غذائية يطلب مستثمرًا شريكًا</h3><div class="meta"><span>صناعات غذائية</span><span>السادس من أكتوبر (المنطقة الصناعية)</span><span>شراكة</span></div><div class="sk" aria-hidden="true"><i></i><i></i><i></i></div><p class="pnote">جاري رفع البيانات وتحديد القيمة ونسب المشاركة. تُعلن بعد استكمالها.</p><a class="btn alt" href="#register" data-pick="buyer" data-interest="مصنع صناعات غذائية - السادس من أكتوبر - شراكة">أرغب في هذه الفرصة</a></div></article>
+    <article class="card pend"><div class="ph ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 40V22l9-5v5l9-5v5l9-5v5l9-5v23z"/><path d="M20 40v-9h8v9"/></svg></div><div class="bd"><h3>فرص أخرى قيد الإضافة</h3><div class="sk" aria-hidden="true"><i></i><i></i><i></i></div><p class="pnote">نضيف فرصًا جديدة بعد كل تفويض. سجّل اهتمامك ونراسلك بما يناسب طلبك.</p><a class="btn" href="#register" data-pick="buyer">سجّل لتصلك الفرص</a></div></article>
+  </div>
+  </div></section>
+
+<section class="s" id="stats-sec" hidden><div class="wrap"><div class="eyebrow">أرقام موثّقة</div><h2>الخدمة بالأرقام</h2><div class="stats" id="stats"></div></div></section>
+
+<section class="s" id="types"><div class="wrap">
+  <div class="eyebrow"><b>٠٢</b> ما نتعامل فيه</div>
+  <h2>أربع فئات من الأصول</h2>
+  <p class="intro">اختر الفئة لتبدأ طلب البيع أو البحث مباشرة. لا نعد بتوفر أصل في كل فئة، والمطابقة تتم يدويًا.</p>
+  <div class="tiles">
+    <article class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 38h36M12 38V20q0-6 6-6h16q6 0 6 6v8H30v10"/><circle cx="22" cy="9" r="3"/></svg><h3>ماكينات ومعدات</h3><p>ماكينة مفردة أو مجموعة، مثل ماكينات التصنيع والتعبئة والقص والتشطيب.</p><div class="links"><a href="#register" data-pick="seller" data-asset="ماكينات ومعدات">أعرض</a><a href="#register" data-pick="buyer" data-asset="ماكينات ومعدات">أبحث</a></div></article>
+    <article class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="32" width="40" height="7" rx="3.5"/><rect x="8" y="18" width="9" height="14"/><rect x="20" y="14" width="9" height="18"/><rect x="32" y="20" width="9" height="12"/><path d="M24 14V8l8-3"/></svg><h3>خطوط إنتاج</h3><p>خطوط كاملة قابلة للتشغيل أو للنقل والتركيب.</p><div class="links"><a href="#register" data-pick="seller" data-asset="خط إنتاج">أعرض</a><a href="#register" data-pick="buyer" data-asset="خط إنتاج">أبحث</a></div></article>
+    <article class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="32" r="8"/><circle cx="34" cy="32" r="8"/><circle cx="24" cy="15" r="8"/><circle cx="14" cy="32" r="2"/><circle cx="34" cy="32" r="2"/><circle cx="24" cy="15" r="2"/></svg><h3>فائض مصانع</h3><p>ماكينات وأدوات ومخزون إنتاج زائد عن حاجة المصنع.</p><div class="links"><a href="#register" data-pick="seller" data-asset="فائض مصنع">أعرض</a><a href="#register" data-pick="buyer" data-asset="فائض مصنع">أبحث</a></div></article>
+    <article class="tile"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 40V22l9-5v5l9-5v5l9-5v5l9-5v23z"/><path d="M20 40v-9h8v9"/></svg><h3>مصنع أو شراكة</h3><p>بيع مصنع كامل أو دخول شريك. تُدرس كل حالة منفردة.</p><div class="links"><a href="#register" data-pick="seller" data-asset="مصنع أو شراكة">أعرض</a><a href="#register" data-pick="buyer" data-asset="مصنع أو شراكة">أبحث</a></div></article>
+  </div>
+</div></section>
+
+<section class="s" id="import"><div class="wrap">
+  <div class="eyebrow"><b>٠٣</b> الاستيراد</div>
+  <h2>استيراد لحساب المستثمرين</h2>
+  <p class="intro">نبحث لك عن المعدات والماكينات وخطوط الإنتاج، جديدة أو مستعملة، ونرتّب المعاينة والتعاقد والشحن، بينما تبقى أنت المشتري والمستورد وصاحب القرار.</p>
+  <p class="intro" style="margin-top:12px">نبحث لك في أسواق الاتحاد الأوروبي، ومنها ألمانيا وإيطاليا وفرنسا، وكذلك في الصين وتركيا، بحسب نوع المعدة وميزانيتك.</p>
+  <div class="levels">
+    <article class="lvl"><h3>جديدة أو مستعملة</h3><p>معدات وماكينات وخطوط إنتاج كاملة لمصنع جديد أو توسعة.</p></article>
+    <article class="lvl"><h3>لا شراء قبل موافقتك</h3><p>لا يُحسم السعر ولا الحالة قبل موافقتك المكتوبة بعد الاطلاع على الأدلة.</p></article>
+    <article class="lvl"><h3>لا نحتفظ بأموالك</h3><p>يدفع المستثمر للمورد مباشرة بالطريقة المتفق عليها، ولا نستلم أموالًا.</p></article>
+  </div>
+  <h3 style="margin:48px 0 0">من الطلب إلى التشغيل</h3>
+  <ol class="steps">
+    <li><span class="n">١</span><h3>تحديد المطلوب</h3><p>المواصفات والكمية والميزانية التقريبية والموعد، وهل المطلوب جديد أم مستعمل.</p></li>
+    <li><span class="n">٢</span><h3>البحث وعروض الأسعار</h3><p>نطلب عروضًا مكتوبة من موردين متعددين ونعرضها عليك للمقارنة.</p></li>
+    <li><span class="n">٣</span><h3>المعاينة والأدلة</h3><p>صور وفيديو حديثة بالتشغيل، ومستندات الصيانة، وتقرير معاينة من جهة فنية من اختيارك قبل أي التزام.</p></li>
+    <li><span class="n">٤</span><h3>موافقتك الكتابية</h3><p>تعتمد المواصفات والحالة والسعر النهائي كتابةً قبل التعاقد.</p></li>
+    <li><span class="n">٥</span><h3>التعاقد والدفع</h3><p>يُبرم العقد بين المستثمر والمورد مباشرة، ويدفع المستثمر للمورد بالطريقة المتفق عليها، ولا نستلم أموالًا.</p></li>
+    <li><span class="n">٦</span><h3>الشحن والتخليص</h3><p>نرتّب الشحن والتأمين والتخليص الجمركي عبر جهات مرخّصة.</p></li>
+    <li><span class="n">٧</span><h3>التسليم والتشغيل</h3><p>استلام الموقع والتركيب والتشغيل التجريبي بحسب ما يتفق عليه مع المورد.</p></li>
+  </ol>
+  <div class="two" style="margin-top:36px">
+    <div class="box"><h3>ما تحصل عليه قبل أي التزام</h3><ul>
+      <li>عرض سعر مكتوب من المورد.</li><li>صور وفيديو حديثة، ويفضل فيديو بالتشغيل للمستعمل.</li><li>بيانات الماكينة: الموديل وسنة الصنع وساعات التشغيل والرقم التسلسلي حيث ينطبق.</li><li>سجل الصيانة وتقرير معاينة، ذاتي أو من جهة فنية مستقلة.</li><li>تقدير لتكلفة الوصول: الشحن والجمارك والتركيب. تقدير غير ملزم.</li></ul></div>
+    <div class="box"><h3>ما يجب أن تعرفه</h3><ul>
+      <li>المستورد هو المستثمر المسجّل قانونيًا. نوضح لك المتطلبات العامة ولا نقدم استشارة قانونية.</li><li>الجمارك والرسوم والتراخيص والمواصفات تختلف بحسب الصنف، ونرجع فيها إلى مخلّص جمركي ومحامٍ.</li><li>قد تخضع بعض الأصناف لمعاملة جمركية تفضيلية بحسب بلد المنشأ والاتفاقيات السارية، ويتحقق منها المخلّص الجمركي.</li><li>لا نضمن حالة المعدات المستعملة. المعاينة قبل الشراء هي الضمان الحقيقي لك.</li></ul></div>
+  </div>
+  <div class="tablewrap" style="margin-top:28px"><div class="row"><b>أجر الخدمة</b><span><i class="ph-tag">[يُحدَّد عند الاتفاق قبل أي طلب شراء]</i></span></div></div>
+  <div class="empty" style="margin-top:28px"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="M24 14v10l7 4"/></svg><div><p><b>قيد التحديث.</b> نضيف الموردين وعروض الأسعار تباعًا بحسب كل طلب. سجّل طلبك الآن لنبدأ البحث لك فور استلامه.</p><p style="margin-top:12px"><a class="btn" href="#register" data-pick="import">اطلب عرض استيراد</a></p></div></div>
+</div></section>
+
+<section class="s" id="how"><div class="wrap">
+  <div class="eyebrow"><b>٠٤</b> كيف نعمل</div>
+  <h2>من التفويض إلى إتمام الصفقة</h2>
+  <ol class="steps">
+    <li><span class="n">١</span><h3>تفويض مكتوب</h3><p>يوقّع المالك تفويضًا يحدد ما يجوز عرضه وبأي شروط. لا نعرض أصلًا بدونه.</p></li>
+    <li><span class="n">٢</span><h3>عرض مجهول الهوية</h3><p>نعرض الأصل بوصف عام وصور لا تدل على المالك أو العنوان.</p></li>
+    <li><span class="n">٣</span><h3>تأهيل المشتري</h3><p>نراجع ما يطلبه المشتري وميزانيته وتوقيته ومصدر تمويله قبل مشاركة أي تفاصيل إضافية.</p></li>
+    <li><span class="n">٤</span><h3>سرية وعربون جدية</h3><p>تُكشف البيانات الكاملة بعد اتفاق سرية وعربون جدية يُتفق عليهما كتابةً.</p></li>
+    <li><span class="n">٥</span><h3>معاينة وتفاوض</h3><p>يرتّب الطرفان المعاينة والتفاوض بتنسيقنا، وللمشتري أن يستعين بخبير فني من اختياره.</p></li>
+    <li><span class="n">٦</span><h3>إتمام الصفقة</h3><p>عند توقيع العقد وإتمام الصفقة تُستحق العمولة المتفق عليها في التفويض.</p></li>
+  </ol>
+</div></section>
+
+<section class="s" id="privacy"><div class="wrap">
+  <div class="eyebrow"><b>٠٥</b> الخصوصية</div>
+  <h2>ما الذي تتحكم فيه كبائع</h2>
+  <p class="intro">تمر معلومات أصلك بثلاثة مستويات كشف. لا ينتقل أصلك إلى المستوى التالي إلا بموافقتك.</p>
+  <div class="levels">
+    <article class="lvl"><h3>المستوى الأول: عام ومجهول</h3><dl><dt>ما يُشارك</dt><dd>نوع الأصل، القطاع، المحافظة، الحالة العامة، وصور لا تدل على الموقع.</dd><dt>ما يبقى محجوبًا</dt><dd>الاسم، العنوان، اسم المصنع.</dd><dt>متى</dt><dd>بعد توقيع التفويض المكتوب.</dd></dl></article>
+    <article class="lvl"><h3>المستوى الثاني: بعد التأهيل</h3><dl><dt>ما يُشارك</dt><dd>الطاقة والعمر والمواصفات الفنية ونطاق السعر، مع مشترٍ جرى تأهيله وبموافقتك.</dd><dt>ما يبقى محجوبًا</dt><dd>الهوية والموقع الدقيق.</dd><dt>متى</dt><dd>بعد مراجعة طلب المشتري وميزانيته وتوقيته.</dd></dl></article>
+    <article class="lvl"><h3>المستوى الثالث: بعد السرية والعربون</h3><dl><dt>ما يُشارك</dt><dd>الهوية، الموقع الدقيق، وترتيب المعاينة.</dd><dt>ما يبقى محجوبًا</dt><dd>أي مستند لم توافق على مشاركته.</dd><dt>متى</dt><dd>بعد توقيع اتفاق السرية وسداد عربون الجدية.</dd></dl></article>
+  </div>
+  <p class="note">اتفاق السرية يلزم من يوقّعه قانونًا، لكنه لا يمنع كل تسريب محتمل. يراجع محامٍ صياغته قبل استخدامه.</p>
+</div></section>
+
+<section class="s" id="terms"><div class="wrap">
+  <div class="eyebrow"><b>٠٦</b> الشروط</div>
+  <h2>الشروط قبل أن تبدأ</h2>
+  <p class="intro">كل بند مكتوب في التفويض قبل عرض أي أصل. لا شيء يُحتسب عليك بعده.</p>
+  <div class="tablewrap">
+    <div class="row"><b>العمولة</b><span><i class="ph-tag">[تُحدَّد عند الاتفاق]</i></span></div>
+    <div class="row"><b>من يدفع العمولة</b><span><i class="ph-tag">[يُحدَّد في التفويض]</i></span></div>
+    <div class="row"><b>مدة التفويض</b><span><i class="ph-tag">[تُحدَّد في التفويض]</i></span></div>
+    <div class="row"><b>حصرية العرض</b><span><i class="ph-tag">[تُحدَّد في التفويض]</i></span></div>
+    <div class="row"><b>عربون الجدية</b><span><i class="ph-tag">[يُحدَّد قبل المستوى الثالث]</i></span></div>
+    <div class="row"><b>الأموال</b><span>لا نستلمها ولا نحتفظ بها. يتفق الطرفان على الدفع كتابةً.</span></div>
+    <div class="row"><b>المستندات</b><span>لا نطلب ميزانيات ولا تراخيص ولا عقودًا ولا هويات.</span></div>
+  </div>
+</div></section>
+
+<section class="s" id="verify"><div class="wrap">
+  <div class="eyebrow"><b>٠٧</b> التحقق والتسليم</div>
+  <h2>ما نراجعه، وما لا نضمنه</h2>
+  <div class="two">
+    <div class="box"><h3>ما نطلبه ونراجعه</h3><ul>
+      <li>تفويض مكتوب من المالك أو من يمثله.</li><li>إقرار من البائع بخلو الأصل من رهن أو تأجير تمويلي، أو بيان وضعه.</li><li>صور حديثة للأصل بلا أسماء أو عناوين.</li><li>اتساق الوصف مع الصور، مراجعة أولية فقط.</li><li>تأهيل المشتري قبل كشف أي تفاصيل.</li></ul></div>
+    <div class="box"><h3>ما لا نضمنه</h3><ul>
+      <li>الحالة الفنية للأصل أو صلاحيته للتشغيل.</li><li>صحة البيانات التي يقدمها أي طرف.</li><li>السعر أو القيمة أو إتمام الصفقة.</li><li>أي استشارة قانونية أو مالية أو تقييم معتمد.</li></ul></div>
+  </div>
+  <div class="box" style="margin-top:28px"><h3>من الاتفاق إلى التسليم</h3><ul>
+    <li>تُحرَّر شروط البيع ونقل الملكية في عقد مكتوب بين الطرفين.</li><li>يتفق الطرفان على الدفع وعلى فك المعدات ونقلها وتركيبها.</li><li>ننصح كل طرف بمراجعة محامٍ قبل التوقيع.</li></ul></div>
+</div></section>
+
+<section class="s" id="about"><div class="wrap">
+  <div class="eyebrow"><b>٠٨</b> من نحن</div>
+  <h2>وساطة تُدار يدويًا</h2>
+  <p class="intro"><span class="brand">[اسم الخدمة]</span> وساطة تجارية لبيع وشراء الأصول الصناعية في مصر، يديرها <i class="ph-tag">[اسم الوسيط]</i> من <i class="ph-tag">[المحافظة]</i>. كل طلب يراجعه إنسان، وكل عرض يخرج بتفويض مكتوب.</p>
+  <div class="two">
+    <div class="box"><h3>البائعون</h3><ul><li>مصانع وورش وملاك أصول يريدون عرض ماكينات أو خط إنتاج أو فائض مصنع أو شراكة بالمعلومات التي يحددونها.</li></ul></div>
+    <div class="box"><h3>المشترون والباحثون عن فرص</h3><ul><li>مصانع تريد التوسعة، ومستثمرون، وتجار، يبحثون عن أصل بمواصفات وميزانية وتوقيت محددة.</li></ul></div>
+  </div>
+  <div class="box" style="margin-top:28px"><h3>ما لا نفعله</h3><ul><li>لا نحتفظ بأموال الأطراف، ولا نضمن بيعًا أو سعرًا، ولا ننشر بياناتك دون موافقتك.</li></ul></div>
+</div></section>
+
+<section class="s" id="proof" hidden><div class="wrap"><div class="eyebrow">آراء موثّقة</div><h2>آراء العملاء</h2><div class="quotes" id="quotes"></div><div class="logos" id="logos"></div></div></section>
+
+<section class="s" id="faq"><div class="wrap">
+  <div class="eyebrow"><b>٠٩</b> أسئلة شائعة</div>
+  <h2>أسئلة شائعة</h2>
+  <details><summary>هل الخدمة مجانية قبل البيع؟</summary><p>نعم. تقديم الطلب والتواصل الأولي بلا رسوم، والعمولة تُستحق عند نجاح الصفقة فقط.</p></details>
+  <details><summary>كيف تُحمى هويتي؟</summary><p>لا يظهر اسمك ولا عنوانك ولا اسم مصنعك في العرض العام. تُكشف الهوية في المستوى الثالث فقط، بعد اتفاق سرية وعربون جدية، وبموافقتك. أنت تتحكم في المعلومات المشاركة، لكن لا يمكن لأي جهة ضمان سرية مطلقة.</p></details>
+  <details><summary>هل تضمنون البيع؟</summary><p>لا. لا نضمن وجود مشترٍ ولا سعرًا ولا مدة. نعرض أصلك على أطراف مناسبة وفق التفويض الذي توقّعه.</p></details>
+  <details><summary>هل تحتفظون بأموالي؟</summary><p>لا. لا نستلم أموالًا ولا نحتفظ بها، ولا تمر أي مدفوعات عبر هذه الصفحة. يُتفق على ترتيب العربون كتابةً بين الطرفين.</p></details>
+  <details><summary>ما العمولة؟</summary><p><i class="ph-tag">[تُحدَّد عند الاتفاق]</i>. تُكتب في التفويض المكتوب قبل أي عرض، ولا تُستحق إلا عند نجاح الصفقة.</p></details>
+  <details><summary>كيف أتأكد من جدية المشتري؟</summary><p>لا نكشف هويتك قبل تأهيل المشتري، ثم اتفاق سرية وعربون جدية يُتفق عليهما كتابةً. هذا يقلل المخاطر ولا يلغيها.</p></details>
+  <details><summary>من يدفع العمولة؟</summary><p><i class="ph-tag">[يُحدَّد في التفويض]</i>. يُكتب ذلك في التفويض المكتوب قبل أي عرض.</p></details>
+  <details><summary>ما الذي لا تقدمونه؟</summary><p>لا نقدم استشارة قانونية أو مالية، ولا تقييمًا معتمدًا لسعر الأصل، ولا تمويلًا، ولا ضمانًا لحالة الأصل أو لصحة بيانات الطرف الآخر.</p></details>
+  <details><summary>لماذا تطلبون صور النشاط؟</summary><p>الصور تساعد المشتري على فهم الأصل. ترسلها لنا في المحادثة، ولا نعرضها علنًا إلا بعد مراجعتها معك وبعد توقيع التفويض. لا ترسل صورًا تظهر فيها لافتات أو أسماء أو عناوين.</p></details>
+  <details><summary>هل أرسل مستندات؟</summary><p>لا. لا نطلب ميزانيات أو تراخيص أو عقودًا أو هويات. نكتفي ببيانات تجارية أساسية وصور للنشاط.</p></details>
+  <details><summary>ماذا يحدث بعد إرسال طلبي؟</summary><p>نرد خلال <i class="ph-tag">[24–48 ساعة]</i>، ونشرح لك التفويض المكتوب ومستويات الكشف. لا يُعرض أصلك لأي طرف قبل توقيعك.</p></details>
+</div></section>
+
+<section class="s" id="prepare"><div class="wrap">
+  <div class="eyebrow"><b>١٠</b> ما تحتاجه لتبدأ</div>
+  <h2>ما تحتاجه لتبدأ</h2>
+  <p class="intro">تجهيز هذه المعلومات يختصر المراسلة. لا تُرسل مستندات.</p>
+  <div class="two">
+    <div class="box"><h3>إن كنت بائعًا</h3><ul><li>نوع الأصل وعدده.</li><li>الحالة العامة والعمر التقريبي.</li><li>المحافظة دون العنوان.</li><li>نطاق السعر إن رغبت.</li><li>صور حديثة بلا لافتات أو أسماء، تُرسل في المحادثة.</li></ul></div>
+    <div class="box"><h3>إن كنت مشتريًا</h3><ul><li>ما تبحث عنه بمواصفات تقريبية.</li><li>المنطقة المفضلة.</li><li>الميزانية التقريبية ومصدر التمويل.</li><li>التوقيت المتوقع للشراء.</li></ul></div>
+  </div>
+</div></section>
+
+<section class="rfq" id="register"><div class="wrap">
+  <div class="eyebrow" style="color:inherit;opacity:.85"><b>١١</b> قدّم طلبك</div>
+  <h2>قدّم طلبك</h2>
+  <p class="intro">اختر نوع الطلب واملأ بضع خطوات قصيرة. لا ترسل أي مستندات. صور النشاط شرط لقبول طلب البيع وتُرسل لنا في المحادثة، لا هنا.</p>
+  <div class="tabs" role="tablist" aria-label="نوع الطلب">
+    <button type="button" role="tab" id="tabSeller" aria-selected="true" aria-controls="fSeller">أريد بيع أصل</button>
+    <button type="button" role="tab" id="tabBuyer" aria-selected="false" aria-controls="fBuyer">أبحث عن أصل</button>
+    <button type="button" role="tab" id="tabImport" aria-selected="false" aria-controls="fImport">أريد استيراد</button>
+  </div>
+
+  <form id="fSeller" role="tabpanel" aria-labelledby="tabSeller" novalidate>
+    <label>الاسم<input name="name" autocomplete="name" required></label>
+    <label>الشركة أو المصنع (اختياري)<input name="company" autocomplete="organization"></label>
+    <label>رقم الهاتف<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label>
+    <label>صفتك<select name="role"><option>مالك الأصل</option><option>ممثل عن المالك بتفويض</option></select></label>
+    <label>فئة الأصل<select name="assetType" id="s_asset"><option>ماكينات ومعدات</option><option>خط إنتاج</option><option>فائض مصنع</option><option>مصنع أو شراكة</option></select></label>
+    <label>القطاع<select name="sector"><option>ملابس جاهزة</option><option>غزل ونسيج</option><option>صناعات غذائية</option><option>جلود وأحذية</option><option>كيماويات وبلاستيك</option><option>هندسية ومعدنية</option><option>أخرى</option></select></label>
+    <label>المحافظة<input name="governorate" required></label>
+    <label>الحالة<select name="condition"><option>يعمل</option><option>يحتاج صيانة</option><option>خارج الخدمة</option><option>لا أعرف</option></select></label>
+    <label>العمر التقريبي (اختياري)<input name="age" placeholder="مثال: 8 سنوات"></label>
+    <label>الطاقة أو العدد (اختياري)<input name="capacity" placeholder="مثال: 20 ماكينة"></label>
+    <label>نوع الصفقة<select name="dealType"><option>بيع</option><option>بيع مع تركيب ونقل</option><option>شراكة</option><option>بيع مصنع كامل</option></select></label>
+    <label>نطاق السعر<select name="priceBand"><option>أفضّل مناقشته لاحقًا</option><option>أقل من 500 ألف جنيه</option><option>من 500 ألف إلى 2 مليون</option><option>من 2 إلى 10 مليون</option><option>أكثر من 10 مليون</option></select></label>
+    <label class="full">وضع الأصل<select name="lienFree"><option>خالٍ من الرهن والتأجير التمويلي</option><option>عليه رهن أو تأجير تمويلي</option><option>لا أعرف</option></select></label>
+    <label class="full">ملاحظات (اختياري)<textarea name="notes" placeholder="أي تفاصيل تفيد المشتري، دون اسم المصنع أو عنوانه"></textarea></label>
+    <label class="full" style="display:flex;gap:10px;align-items:flex-start"><input type="checkbox" name="photos" style="width:22px;height:22px;margin-top:4px;flex:none"><span>أستطيع إرسال صور حديثة للأصل عبر واتساب بعد هذا الطلب (شرط لقبول طلب البيع).</span></label>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="err" role="alert" hidden></p>
+    <div class="acts"><button class="btn" type="submit" data-via="wa">أرسل عبر واتساب</button><button class="btn alt" type="button" data-via="mail">أرسل بالبريد</button><button class="btn alt" type="button" data-via="copy">انسخ الرسالة</button></div>
+    <p class="fine">لا تُرسل هذه الصفحة شيئًا تلقائيًا، فالرسالة تُجهَّز على جهازك وتُرسل بقرارك. لا ترسل مستندات أو هويات أو صورًا تظهر فيها لافتات أو عناوين.</p>
+  </form>
+
+  <form id="fBuyer" role="tabpanel" aria-labelledby="tabBuyer" hidden novalidate>
+    <label>الاسم<input name="name" autocomplete="name" required></label>
+    <label>الشركة (اختياري)<input name="company" autocomplete="organization"></label>
+    <label>رقم الهاتف<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label>
+    <label>صفتك<select name="buyerType"><option>مصنع يريد التوسعة</option><option>مستثمر</option><option>تاجر</option><option>أخرى</option></select></label>
+    <label class="full">ما الذي تبحث عنه؟<input name="interest" id="b_interest" placeholder="مثال: 15 ماكينة تعبئة وتغليف مستعملة" required></label>
+    <label>المنطقة المفضلة<input name="region" placeholder="المحافظة أو أي مكان"></label>
+    <label>الميزانية<select name="budget"><option>أفضّل مناقشتها لاحقًا</option><option>أقل من 500 ألف جنيه</option><option>من 500 ألف إلى 2 مليون</option><option>من 2 إلى 10 مليون</option><option>أكثر من 10 مليون</option></select></label>
+    <label>مصدر التمويل<select name="funding"><option>تمويل ذاتي</option><option>تمويل بنكي</option><option>مع شريك</option><option>لم أحدده بعد</option></select></label>
+    <label>التوقيت<select name="timing"><option>خلال شهر</option><option>من 1 إلى 3 أشهر</option><option>أكثر من 3 أشهر</option><option>غير محدد</option></select></label>
+    <label class="full">ملاحظات (اختياري)<textarea name="notes"></textarea></label>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="err" role="alert" hidden></p>
+    <div class="acts"><button class="btn" type="submit" data-via="wa">أرسل عبر واتساب</button><button class="btn alt" type="button" data-via="mail">أرسل بالبريد</button><button class="btn alt" type="button" data-via="copy">انسخ الرسالة</button></div>
+    <p class="fine">لا تُرسل هذه الصفحة شيئًا تلقائيًا. نراجع طلبك ونتواصل معك لتأهيله قبل مشاركة أي تفاصيل.</p>
+  </form>
+
+  <form id="fImport" role="tabpanel" aria-labelledby="tabImport" hidden novalidate>
+    <label>الاسم<input name="name" autocomplete="name" required></label>
+    <label>الشركة (اختياري)<input name="company" autocomplete="organization"></label>
+    <label>رقم الهاتف<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label>
+    <label>هل لديك سجل تجاري أو شركة مسجلة؟<select name="registered"><option>نعم</option><option>قيد التأسيس</option><option>لا</option></select></label>
+    <label class="full">المطلوب استيراده<input name="interest" id="i_interest" placeholder="مثال: خط تعبئة كامل، أو 20 ماكينة تغليف" required></label>
+    <label>جديد أو مستعمل<select name="state"><option>جديد</option><option>مستعمل</option><option>كلاهما</option></select></label>
+    <label>الكمية<input name="qty"></label>
+    <label>بلد المنشأ المفضل<select name="origin"><option>لا أفضلية</option><option>الصين</option><option>تركيا</option><option>الاتحاد الأوروبي</option><option>أخرى</option></select></label>
+    <label>موقع التركيب (المحافظة)<input name="site"></label>
+    <label>الميزانية<select name="budget"><option>أفضّل مناقشتها لاحقًا</option><option>أقل من 500 ألف جنيه</option><option>من 500 ألف إلى 2 مليون</option><option>من 2 إلى 10 مليون</option><option>أكثر من 10 مليون</option></select></label>
+    <label>التوقيت<select name="timing"><option>خلال شهر</option><option>من 1 إلى 3 أشهر</option><option>أكثر من 3 أشهر</option><option>غير محدد</option></select></label>
+    <label class="full">ملاحظات أو مواصفات إضافية (اختياري)<textarea name="notes"></textarea></label>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="err" role="alert" hidden></p>
+    <div class="acts"><button class="btn" type="submit" data-via="wa">أرسل عبر واتساب</button><button class="btn alt" type="button" data-via="mail">أرسل بالبريد</button><button class="btn alt" type="button" data-via="copy">انسخ الرسالة</button></div>
+    <p class="fine">سنرد عليك بعد مراجعة المطلوب. لا نبدأ أي ترتيب شراء قبل اتفاق كتابي على أجر الخدمة.</p>
+  </form>
+
+  <div class="contact" id="contact">
+    <p><b>الهاتف / واتساب:</b> <a href="tel:+201551802066" dir="ltr">01551802066</a></p>
+    <p><b>البريد:</b> <a href="mailto:wathiq.eg@gmail.com" dir="ltr">wathiq.eg@gmail.com</a></p>
+    <p><b>وسائل التواصل:</b> <i class="ph-tag">[روابط التواصل]</i></p>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="legal"><b>إخلاء مسؤولية.</b> هذه الصفحة تعرض خدمة وساطة تجارية. لا تقدم استشارة قانونية أو مالية، ولا تقييمًا معتمدًا للأصول، ولا تضمن بيع أي أصل أو سعره أو شراءه. تبقى المعلومات التي يقدمها الأطراف مسؤوليتهم، وعلى كل طرف أن يتحقق منها بنفسه ويستشير مختصًا قبل أي التزام.</p>
+  <p class="legal">صور الفرص يرفعها المالك بعد تفويض صاحب الأصل، وقد تُعالج لإخفاء ما يدل على الهوية. وصف الأصل يقدمه صاحبه ويبقى مسؤوليته.</p>
+  <p class="legal">الصور في واجهة الصفحة توضيحية لأنواع المنشآت والمعدات، ولا تمثل أصولًا معروضة للبيع.</p>
+  <details><summary>سياسة الخصوصية (مسودة، تراجع قانونيًا)</summary><ul>
+    <li><b>ما نجمعه:</b> ما تكتبه في النموذج فقط: بيانات الأصل أو الطلب، والاسم، ورقم الهاتف.</li>
+    <li><b>كيف يصلنا:</b> تُجهَّز الرسالة على جهازك وتُرسل بقرارك عبر واتساب أو البريد. هذه الصفحة لا تخزن ما تكتبه ولا ترسله تلقائيًا، ولا ترفع صورك إلى أي مكان. لواتساب سياساته الخاصة التي تنطبق على رسائلك.</li>
+    <li><b>لماذا:</b> للتواصل معك بشأن طلبك فقط. لا نبيع بياناتك.</li>
+    <li><b>مع من نشاركها:</b> لا نشارك هويتك مع أي طرف قبل تفويض مكتوب منك ووفق مستويات الكشف.</li>
+    <li><b>ما لا نطلبه:</b> ميزانيات، تراخيص، عقود، أو هويات.</li>
+    <li><b>مدة الاحتفاظ:</b> <i class="ph-tag">[مدة الاحتفاظ]</i>.</li>
+    <li><b>حقوقك:</b> يمكنك طلب تعديل بياناتك أو حذفها بمراسلتنا على wathiq.eg@gmail.com.</li>
+    <li><b>الجهة المسؤولة:</b> <i class="ph-tag">[اسم الجهة المسؤولة عن البيانات]</i>.</li></ul></details>
+</div></footer>
+
+<a class="fab" id="fab" href="#register" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.200zm4.500-6.100c-.2-.1-1.500-.7-1.700-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.700 6.700 0 0 1-3.300-2.900c-.2-.4.2-.4.7-1.300.1-.2 0-.3 0-.4l-.8-1.800c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.200 5.200 5.200 0 0 0 1.100 2.800 11.900 11.900 0 0 0 4.600 4.100c1.700.7 2.300.8 3.200.7a2.700 2.700 0 0 0 1.800-1.300 2.200 2.200 0 0 0 .2-1.300c0-.1-.2-.2-.5-.3z"/></svg></a>
+<div class="sticky" id="sticky"><a class="btn alt" href="#register" data-pick="buyer">أبحث عن أصل</a><a class="btn" href="#register" data-pick="seller">أريد بيع أصل</a></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== settings: the owner edits only this block ===== */
+var CFG={
+  brand:"وثيق",
+  brandEn:"Wathiq",                 /* service name shown in header and about */
+  wa:"201551802066",                    /* WhatsApp number, international format, no + */
+  email:"wathiq.eg@gmail.com",
+  webhook:""                            /* optional Google Apps Script /exec link; leave empty if the page is not hosted on its own domain */
+};
+/* real, authorised content only. Sections stay hidden while these are empty. */
+var DATA={
+  hero:[],       /* {src, label, labelEn}  real photos for the rotating hero. Leave empty to keep the drawn slides. */
+  listings:[],   /* {title, sector, gov, condition, age, capacity, deal, img}  (img required: a real, anonymised photo) */
+  stats:[],      /* {n:"12", l:"label"}  only verifiable numbers */
+  quotes:[],     /* {t:"quote", by:"name, role"}  only with written permission */
+  logos:[]       /* {src, alt}  only with permission */
+};
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var EN={"تخطَّ إلى المحتوى": "Skip to content", "نسخة مسودة. لا تُشارك الرابط قبل أن يراجع محامٍ نصوص الإخلاء والخصوصية، واحذف هذا الشريط عند النشر.": "Draft version. Do not share the link until a lawyer reviews the disclaimer and privacy text, and remove this bar at launch.", "الصفحة الرئيسية": "Home", "القائمة الرئيسية": "Main menu", "القائمة": "Menu", "الفرص": "Listings", "ما نتعامل فيه": "What we handle", "كيف نعمل": "How we work", "الخصوصية": "Privacy", "الشروط": "Terms", "التحقق": "Verification", "من نحن": "About", "أسئلة": "FAQ", "قدّم طلبك": "Submit a request", "صور توضيحية للفئات": "Category illustrations", "التنقل بين الصور": "Slide navigation", "ماكينات ومعدات": "Machinery & equipment", "خطوط إنتاج": "Production lines", "فائض مصانع": "Factory surplus", "مصنع أو شراكة": "Factory or partnership", "· وساطة أصول صناعية · مصر": "· Industrial asset brokerage · Egypt", "وساطة بين أصحاب الأصول الصناعية والمشترين في مصر": "Brokerage between industrial asset owners and buyers in Egypt", "ماكينات، خطوط إنتاج، وفائض مصانع في مختلف القطاعات الصناعية. بتفويض مكتوب من المالك، وعمولة عند نجاح الصفقة فقط.": "Machinery, production lines and factory surplus, especially garments. Under the owner's written authorisation, with a commission only when the deal succeeds.", "أريد بيع أصل": "I want to sell an asset", "أبحث عن أصل": "I'm looking for an asset", "التزاماتنا": "Our commitments", "تفويض مكتوب": "Written authorisation", "قبل عرض أي أصل": "Before any asset is shown", "عمولة عند نجاح الصفقة": "Commission on success", "الخدمة بلا رسوم قبل البيع": "No fees before the sale", "ثلاثة مستويات كشف": "Three disclosure levels", "تتحكم في كل مستوى": "You control each level", "الدفع بين الطرفين مباشرة": "Payment goes directly between the parties", "٠١": "01", "٠٢": "02", "٠٣": "03", "٠٤": "04", "٠٥": "05", "٠٦": "06", "٠٧": "07", "٠٨": "08", "٠٩": "09", "١٠": "10", "١": "1", "٢": "2", "٣": "3", "٤": "4", "٥": "5", "٦": "6", "الفرص المعروضة": "Current listings", "أصول معروضة بتفويض أصحابها": "Assets listed with their owners' authorisation", "كل فرصة بوصف عام وصور لا تدل على المالك أو العنوان.": "Each listing has a general description and photos that do not reveal the owner or address.", "لا توجد فرص معروضة حاليًا. تظهر الفرص هنا بعد توقيع تفويض مكتوب من المالك، وبصور حديثة للأصل.": "There are no listings at the moment. Listings appear here after the owner signs a written authorisation, with recent photos of the asset.", "اعرض أصلك": "List your asset", "أرقام موثّقة": "Verified figures", "الخدمة بالأرقام": "The service in numbers", "أربع فئات من الأصول": "Four categories of assets", "اختر الفئة لتبدأ طلب البيع أو البحث مباشرة. لا نعد بتوفر أصل في كل فئة، والمطابقة تتم يدويًا.": "Choose a category to start a sell or search request directly. We do not promise availability in every category; matching is done manually.", "ماكينة مفردة أو مجموعة، مثل ماكينات التصنيع والتعبئة والقص والتشطيب.": "A single machine or a group, such as sewing, cutting and finishing machines.", "أعرض": "I sell", "أبحث": "I search", "خطوط كاملة قابلة للتشغيل أو للنقل والتركيب.": "Complete lines that can be run, or moved and installed.", "ماكينات وأدوات ومخزون إنتاج زائد عن حاجة المصنع.": "Machines, tools and production stock beyond the factory's needs.", "بيع مصنع كامل أو دخول شريك. تُدرس كل حالة منفردة.": "Selling a whole factory or bringing in a partner. Each case is studied individually.", "من التفويض إلى إتمام الصفقة": "From authorisation to closing the deal", "يوقّع المالك تفويضًا يحدد ما يجوز عرضه وبأي شروط. لا نعرض أصلًا بدونه.": "The owner signs an authorisation that sets what may be shown and on what terms. We never list an asset without it.", "عرض مجهول الهوية": "Anonymous listing", "نعرض الأصل بوصف عام وصور لا تدل على المالك أو العنوان.": "We present the asset with a general description and photos that do not reveal the owner or address.", "تأهيل المشتري": "Buyer qualification", "نراجع ما يطلبه المشتري وميزانيته وتوقيته ومصدر تمويله قبل مشاركة أي تفاصيل إضافية.": "We review what the buyer wants, their budget, timing and funding source before sharing any further details.", "سرية وعربون جدية": "Confidentiality and good-faith deposit", "تُكشف البيانات الكاملة بعد اتفاق سرية وعربون جدية يُتفق عليهما كتابةً.": "Full details are disclosed after a confidentiality agreement and a good-faith deposit, both agreed in writing.", "معاينة وتفاوض": "Inspection and negotiation", "يرتّب الطرفان المعاينة والتفاوض بتنسيقنا، وللمشتري أن يستعين بخبير فني من اختياره.": "The parties arrange inspection and negotiation through us, and the buyer may bring a technical expert of their choice.", "إتمام الصفقة": "Closing the deal", "عند توقيع العقد وإتمام الصفقة تُستحق العمولة المتفق عليها في التفويض.": "When the contract is signed and the deal completes, the commission agreed in the authorisation becomes due.", "ما الذي تتحكم فيه كبائع": "What you control as a seller", "تمر معلومات أصلك بثلاثة مستويات كشف. لا ينتقل أصلك إلى المستوى التالي إلا بموافقتك.": "Your asset's information passes through three disclosure levels. It moves to the next level only with your approval.", "المستوى الأول: عام ومجهول": "Level one: public and anonymous", "ما يُشارك": "What is shared", "ما يبقى محجوبًا": "What stays hidden", "متى": "When", "نوع الأصل، القطاع، المحافظة، الحالة العامة، وصور لا تدل على الموقع.": "Asset type, sector, governorate, general condition, and photos that do not reveal the location.", "الاسم، العنوان، اسم المصنع.": "Name, address, factory name.", "بعد توقيع التفويض المكتوب.": "After the written authorisation is signed.", "المستوى الثاني: بعد التأهيل": "Level two: after qualification", "الطاقة والعمر والمواصفات الفنية ونطاق السعر، مع مشترٍ جرى تأهيله وبموافقتك.": "Capacity, age, technical specifications and price range, with a qualified buyer and with your approval.", "الهوية والموقع الدقيق.": "Identity and exact location.", "بعد مراجعة طلب المشتري وميزانيته وتوقيته.": "After reviewing the buyer's request, budget and timing.", "المستوى الثالث: بعد السرية والعربون": "Level three: after confidentiality and deposit", "الهوية، الموقع الدقيق، وترتيب المعاينة.": "Identity, exact location and inspection arrangements.", "أي مستند لم توافق على مشاركته.": "Any document you did not agree to share.", "بعد توقيع اتفاق السرية وسداد عربون الجدية.": "After the confidentiality agreement is signed and the good-faith deposit is paid.", "اتفاق السرية يلزم من يوقّعه قانونًا، لكنه لا يمنع كل تسريب محتمل. يراجع محامٍ صياغته قبل استخدامه.": "A confidentiality agreement legally binds whoever signs it, but it does not prevent every possible leak. A lawyer should review its wording before use.", "الشروط قبل أن تبدأ": "Terms before you start", "كل بند مكتوب في التفويض قبل عرض أي أصل. لا شيء يُحتسب عليك بعده.": "Every item is written in the authorisation before any asset is shown. Nothing is charged to you afterwards.", "العمولة": "Commission", "من يدفع العمولة": "Who pays the commission", "مدة التفويض": "Authorisation period", "حصرية العرض": "Exclusivity", "عربون الجدية": "Good-faith deposit", "الأموال": "Funds", "المستندات": "Documents", "[تُحدَّد عند الاتفاق]": "[To be agreed]", "[يُحدَّد في التفويض]": "[Set in the authorisation]", "[تُحدَّد في التفويض]": "[Set in the authorisation]", "[يُحدَّد قبل المستوى الثالث]": "[Set before level three]", "لا نستلمها ولا نحتفظ بها. يتفق الطرفان على الدفع كتابةً.": "We neither receive nor hold them. The parties agree on payment in writing.", "لا نطلب ميزانيات ولا تراخيص ولا عقودًا ولا هويات.": "We do not ask for financial statements, licences, contracts or ID documents.", "التحقق والتسليم": "Verification and handover", "ما نراجعه، وما لا نضمنه": "What we review, and what we do not guarantee", "ما نطلبه ونراجعه": "What we ask for and review", "ما لا نضمنه": "What we do not guarantee", "تفويض مكتوب من المالك أو من يمثله.": "Written authorisation from the owner or their representative.", "إقرار من البائع بخلو الأصل من رهن أو تأجير تمويلي، أو بيان وضعه.": "A statement from the seller that the asset is free of liens or financial leases, or a note of its status.", "صور حديثة للأصل بلا أسماء أو عناوين.": "Recent photos of the asset with no names or addresses.", "اتساق الوصف مع الصور، مراجعة أولية فقط.": "Consistency between description and photos, a preliminary review only.", "تأهيل المشتري قبل كشف أي تفاصيل.": "Buyer qualification before any details are disclosed.", "الحالة الفنية للأصل أو صلاحيته للتشغيل.": "The asset's technical condition or fitness to operate.", "صحة البيانات التي يقدمها أي طرف.": "The accuracy of data provided by any party.", "السعر أو القيمة أو إتمام الصفقة.": "The price, the value, or closing of the deal.", "أي استشارة قانونية أو مالية أو تقييم معتمد.": "Any legal or financial advice or certified valuation.", "من الاتفاق إلى التسليم": "From agreement to handover", "تُحرَّر شروط البيع ونقل الملكية في عقد مكتوب بين الطرفين.": "Sale terms and transfer of ownership are set out in a written contract between the parties.", "يتفق الطرفان على الدفع وعلى فك المعدات ونقلها وتركيبها.": "The parties agree on payment and on dismantling, moving and installing the equipment.", "ننصح كل طرف بمراجعة محامٍ قبل التوقيع.": "We advise each party to consult a lawyer before signing.", "وساطة تُدار يدويًا": "A hands-on brokerage", "وساطة تجارية لبيع وشراء الأصول الصناعية في مصر، يديرها": "is a commercial brokerage for buying and selling industrial assets in Egypt, run by", "[اسم الوسيط]": "[Broker name]", "من": "from", "[المحافظة]": "[Governorate]", ". كل طلب يراجعه إنسان، وكل عرض يخرج بتفويض مكتوب.": ". Every request is reviewed by a person, and every listing goes out under written authorisation.", "البائعون": "Sellers", "مصانع وورش وملاك أصول يريدون عرض ماكينات أو خط إنتاج أو فائض مصنع أو شراكة بالمعلومات التي يحددونها.": "Factories, workshops and asset owners who want to offer machines, a production line, factory surplus or a partnership, with the information they choose to share.", "المشترون والباحثون عن فرص": "Buyers and opportunity seekers", "مصانع تريد التوسعة، ومستثمرون، وتجار، يبحثون عن أصل بمواصفات وميزانية وتوقيت محددة.": "Factories looking to expand, investors and traders searching for an asset with a defined specification, budget and timing.", "ما لا نفعله": "What we do not do", "لا نحتفظ بأموال الأطراف، ولا نضمن بيعًا أو سعرًا، ولا ننشر بياناتك دون موافقتك.": "We do not hold the parties' money, guarantee a sale or a price, or publish your data without your consent.", "آراء موثّقة": "Verified testimonials", "آراء العملاء": "Client testimonials", "أسئلة شائعة": "Frequently asked questions", "هل الخدمة مجانية قبل البيع؟": "Is the service free before the sale?", "نعم. تقديم الطلب والتواصل الأولي بلا رسوم، والعمولة تُستحق عند نجاح الصفقة فقط.": "Yes. Submitting a request and initial contact are free; the commission is due only when the deal succeeds.", "كيف تُحمى هويتي؟": "How is my identity protected?", "لا يظهر اسمك ولا عنوانك ولا اسم مصنعك في العرض العام. تُكشف الهوية في المستوى الثالث فقط، بعد اتفاق سرية وعربون جدية، وبموافقتك. أنت تتحكم في المعلومات المشاركة، لكن لا يمكن لأي جهة ضمان سرية مطلقة.": "Your name, address and factory name do not appear in the public listing. Identity is disclosed at level three only, after a confidentiality agreement and a good-faith deposit, and with your approval. You control the information shared, but no party can guarantee absolute secrecy.", "هل تضمنون البيع؟": "Do you guarantee a sale?", "لا. لا نضمن وجود مشترٍ ولا سعرًا ولا مدة. نعرض أصلك على أطراف مناسبة وفق التفويض الذي توقّعه.": "No. We do not guarantee a buyer, a price or a timeframe. We present your asset to suitable parties under the authorisation you sign.", "هل تحتفظون بأموالي؟": "Do you hold my money?", "لا. لا نستلم أموالًا ولا نحتفظ بها، ولا تمر أي مدفوعات عبر هذه الصفحة. يُتفق على ترتيب العربون كتابةً بين الطرفين.": "No. We do not receive or hold funds, and no payments pass through this page. The deposit arrangement is agreed in writing between the parties.", "ما العمولة؟": "What is the commission?", ". تُكتب في التفويض المكتوب قبل أي عرض، ولا تُستحق إلا عند نجاح الصفقة.": ". It is written in the authorisation before any listing and is due only when the deal succeeds.", "كيف أتأكد من جدية المشتري؟": "How can I be sure the buyer is serious?", "لا نكشف هويتك قبل تأهيل المشتري، ثم اتفاق سرية وعربون جدية يُتفق عليهما كتابةً. هذا يقلل المخاطر ولا يلغيها.": "We do not reveal your identity before the buyer is qualified, then a confidentiality agreement and a good-faith deposit are agreed in writing. This reduces risk but does not remove it.", "من يدفع العمولة؟": "Who pays the commission?", ". يُكتب ذلك في التفويض المكتوب قبل أي عرض.": ". This is written in the authorisation before any listing.", "ما الذي لا تقدمونه؟": "What do you not provide?", "لا نقدم استشارة قانونية أو مالية، ولا تقييمًا معتمدًا لسعر الأصل، ولا تمويلًا، ولا ضمانًا لحالة الأصل أو لصحة بيانات الطرف الآخر.": "We do not provide legal or financial advice, a certified valuation of the asset, financing, or any guarantee of the asset's condition or of the other party's data.", "لماذا تطلبون صور النشاط؟": "Why do you ask for photos of the operation?", "الصور تساعد المشتري على فهم الأصل. ترسلها لنا في المحادثة، ولا نعرضها علنًا إلا بعد مراجعتها معك وبعد توقيع التفويض. لا ترسل صورًا تظهر فيها لافتات أو أسماء أو عناوين.": "Photos help the buyer understand the asset. You send them to us in the chat, and we show them publicly only after reviewing them with you and after the authorisation is signed. Do not send photos showing signs, names or addresses.", "هل أرسل مستندات؟": "Should I send documents?", "لا. لا نطلب ميزانيات أو تراخيص أو عقودًا أو هويات. نكتفي ببيانات تجارية أساسية وصور للنشاط.": "No. We do not ask for financial statements, licences, contracts or ID documents. Basic commercial details and photos of the operation are enough.", "ماذا يحدث بعد إرسال طلبي؟": "What happens after I send my request?", "نرد خلال": "We reply within", "[24–48 ساعة]": "[24–48 hours]", "، ونشرح لك التفويض المكتوب ومستويات الكشف. لا يُعرض أصلك لأي طرف قبل توقيعك.": ", and explain the written authorisation and disclosure levels. Your asset is not shown to any party before you sign.", "ما تحتاجه لتبدأ": "What you need to start", "تجهيز هذه المعلومات يختصر المراسلة. لا تُرسل مستندات.": "Having this information ready shortens the conversation. Do not send documents.", "إن كنت بائعًا": "If you are a seller", "إن كنت مشتريًا": "If you are a buyer", "نوع الأصل وعدده.": "Asset type and quantity.", "الحالة العامة والعمر التقريبي.": "General condition and approximate age.", "المحافظة دون العنوان.": "Governorate, without the address.", "نطاق السعر إن رغبت.": "Price range, if you wish.", "صور حديثة بلا لافتات أو أسماء، تُرسل في المحادثة.": "Recent photos with no signs or names, sent in the chat.", "ما تبحث عنه بمواصفات تقريبية.": "What you are looking for, with approximate specifications.", "المنطقة المفضلة.": "Preferred region.", "الميزانية التقريبية ومصدر التمويل.": "Approximate budget and funding source.", "التوقيت المتوقع للشراء.": "Expected purchase timing.", "نوع الطلب": "Request type", "اختر نوع الطلب واملأ بضع خطوات قصيرة. لا ترسل أي مستندات. صور النشاط شرط لقبول طلب البيع وتُرسل لنا في المحادثة، لا هنا.": "Choose the request type and fill in a few short fields. Do not send any documents. Photos of the operation are required to accept a sell request and are sent to us in the chat, not here.", "الاسم": "Name", "الشركة أو المصنع (اختياري)": "Company or factory (optional)", "رقم الهاتف": "Phone number", "صفتك": "Your role", "مالك الأصل": "Asset owner", "ممثل عن المالك بتفويض": "Representative with authorisation", "فئة الأصل": "Asset category", "خط إنتاج": "Production line", "فائض مصنع": "Factory surplus", "القطاع": "Sector", "ملابس جاهزة": "Ready-made garments", "نسيج وأقمشة": "Textiles and fabrics", "جلود وأحذية": "Leather and shoes", "أخرى": "Other", "المحافظة": "Governorate", "الحالة": "Condition", "يعمل": "Working", "يحتاج صيانة": "Needs maintenance", "خارج الخدمة": "Out of service", "لا أعرف": "I don't know", "العمر التقريبي (اختياري)": "Approximate age (optional)", "مثال: 8 سنوات": "e.g. 8 years", "الطاقة أو العدد (اختياري)": "Capacity or quantity (optional)", "مثال: 20 ماكينة": "e.g. 20 machines", "نوع الصفقة": "Deal type", "بيع": "Sale", "بيع مع تركيب ونقل": "Sale with installation and transport", "شراكة": "Partnership", "بيع مصنع كامل": "Sale of a whole factory", "نطاق السعر": "Price range", "أفضّل مناقشته لاحقًا": "I prefer to discuss it later", "أقل من 500 ألف جنيه": "Under EGP 500,000", "من 500 ألف إلى 2 مليون": "EGP 500,000 to 2 million", "من 2 إلى 10 مليون": "EGP 2 to 10 million", "أكثر من 10 مليون": "Over EGP 10 million", "وضع الأصل": "Asset status", "خالٍ من الرهن والتأجير التمويلي": "Free of liens and financial leases", "عليه رهن أو تأجير تمويلي": "Has a lien or financial lease", "ملاحظات (اختياري)": "Notes (optional)", "أي تفاصيل تفيد المشتري، دون اسم المصنع أو عنوانه": "Any details useful to the buyer, without the factory name or address", "أستطيع إرسال صور حديثة للأصل عبر واتساب بعد هذا الطلب (شرط لقبول طلب البيع).": "I can send recent photos of the asset via WhatsApp after this request (required to accept a sell request).", "أرسل عبر واتساب": "Send via WhatsApp", "أرسل بالبريد": "Send by email", "انسخ الرسالة": "Copy the message", "لا تُرسل هذه الصفحة شيئًا تلقائيًا، فالرسالة تُجهَّز على جهازك وتُرسل بقرارك. لا ترسل مستندات أو هويات أو صورًا تظهر فيها لافتات أو عناوين.": "This page sends nothing automatically: the message is prepared on your device and sent at your decision. Do not send documents, IDs or photos showing signs or addresses.", "الشركة (اختياري)": "Company (optional)", "مصنع يريد التوسعة": "Factory seeking to expand", "مستثمر": "Investor", "تاجر": "Trader", "ما الذي تبحث عنه؟": "What are you looking for?", "مثال: 15 ماكينة تعبئة وتغليف مستعملة": "e.g. 15 used industrial sewing machines", "المنطقة المفضلة": "Preferred region", "المحافظة أو أي مكان": "A governorate or anywhere", "الميزانية": "Budget", "أفضّل مناقشتها لاحقًا": "I prefer to discuss it later", "مصدر التمويل": "Funding source", "تمويل ذاتي": "Self-funded", "تمويل بنكي": "Bank financing", "مع شريك": "With a partner", "لم أحدده بعد": "Not decided yet", "التوقيت": "Timing", "خلال شهر": "Within a month", "من 1 إلى 3 أشهر": "1 to 3 months", "أكثر من 3 أشهر": "More than 3 months", "غير محدد": "Not defined", "لا تُرسل هذه الصفحة شيئًا تلقائيًا. نراجع طلبك ونتواصل معك لتأهيله قبل مشاركة أي تفاصيل.": "This page sends nothing automatically. We review your request and contact you to qualify it before sharing any details.", "الهاتف / واتساب:": "Phone / WhatsApp:", "البريد:": "Email:", "وسائل التواصل:": "Social media:", "[روابط التواصل]": "[Social links]", "إخلاء مسؤولية.": "Disclaimer.", "هذه الصفحة تعرض خدمة وساطة تجارية. لا تقدم استشارة قانونية أو مالية، ولا تقييمًا معتمدًا للأصول، ولا تضمن بيع أي أصل أو سعره أو شراءه. تبقى المعلومات التي يقدمها الأطراف مسؤوليتهم، وعلى كل طرف أن يتحقق منها بنفسه ويستشير مختصًا قبل أي التزام.": "This page presents a commercial brokerage service. It provides no legal or financial advice or certified valuation, and does not guarantee the sale, price or purchase of any asset. Information supplied by the parties remains their responsibility, and each party should verify it and consult a specialist before any commitment.", "صور الفرص يرفعها المالك بعد تفويض صاحب الأصل، وقد تُعالج لإخفاء ما يدل على الهوية. وصف الأصل يقدمه صاحبه ويبقى مسؤوليته.": "Listing photos are provided after the asset owner's authorisation and may be processed to hide identifying details. The asset description is supplied by its owner and remains their responsibility.", "سياسة الخصوصية (مسودة، تراجع قانونيًا)": "Privacy policy (draft, pending legal review)", "ما نجمعه:": "What we collect:", "ما تكتبه في النموذج فقط: بيانات الأصل أو الطلب، والاسم، ورقم الهاتف.": "Only what you type in the form: asset or request details, name and phone number.", "كيف يصلنا:": "How it reaches us:", "تُجهَّز الرسالة على جهازك وتُرسل بقرارك عبر واتساب أو البريد. هذه الصفحة لا تخزن ما تكتبه ولا ترسله تلقائيًا، ولا ترفع صورك إلى أي مكان. لواتساب سياساته الخاصة التي تنطبق على رسائلك.": "The message is prepared on your device and sent at your decision via WhatsApp or email. This page neither stores nor automatically sends what you type, and uploads no photos anywhere. WhatsApp has its own policies that apply to your messages.", "لماذا:": "Why:", "للتواصل معك بشأن طلبك فقط. لا نبيع بياناتك.": "Only to contact you about your request. We do not sell your data.", "مع من نشاركها:": "Who we share it with:", "لا نشارك هويتك مع أي طرف قبل تفويض مكتوب منك ووفق مستويات الكشف.": "We do not share your identity with any party before your written authorisation and according to the disclosure levels.", "ما لا نطلبه:": "What we do not ask for:", "ميزانيات، تراخيص، عقود، أو هويات.": "Financial statements, licences, contracts or ID documents.", "مدة الاحتفاظ:": "Retention period:", "[مدة الاحتفاظ]": "[Retention period]", "حقوقك:": "Your rights:", "يمكنك طلب تعديل بياناتك أو حذفها بمراسلتنا على": "You can ask to correct or delete your data by writing to us at", "الجهة المسؤولة:": "Responsible party:", "[اسم الجهة المسؤولة عن البيانات]": "[Name of the data controller]", "وساطة أصول صناعية في مصر": "Industrial Asset Brokerage in Egypt", "تواصل عبر واتساب": "Chat on WhatsApp", "يمكنك طلب تعديل بياناتك أو حذفها بمراسلتنا على wathiq.eg@gmail.com.": "You can ask to correct or delete your data by writing to us at wathiq.eg@gmail.com.", "١١": "11", "الاستيراد": "Import", "استيراد لحساب المستثمرين": "Importing on behalf of investors", "نبحث لك عن المعدات والماكينات وخطوط الإنتاج، جديدة أو مستعملة، ونرتّب المعاينة والتعاقد والشحن، بينما تبقى أنت المشتري والمستورد وصاحب القرار.": "We source equipment, machinery and production lines, new or used, and coordinate inspection, contracting and shipping, while you remain the buyer, the importer and the decision-maker.", "جديدة أو مستعملة": "New or used", "معدات وماكينات وخطوط إنتاج كاملة لمصنع جديد أو توسعة.": "Equipment, machinery and complete production lines for a new plant or an expansion.", "لا شراء قبل موافقتك": "No purchase without your approval", "لا يُحسم السعر ولا الحالة قبل موافقتك المكتوبة بعد الاطلاع على الأدلة.": "Price and condition are not final until you approve in writing after reviewing the evidence.", "من الطلب إلى التشغيل": "From request to operation", "تحديد المطلوب": "Define the requirement", "المواصفات والكمية والميزانية التقريبية والموعد، وهل المطلوب جديد أم مستعمل.": "Specifications, quantity, approximate budget and deadline, and whether new or used is required.", "البحث وعروض الأسعار": "Sourcing and quotations", "نطلب عروضًا مكتوبة من موردين متعددين ونعرضها عليك للمقارنة.": "We request written quotations from several suppliers and present them for comparison.", "المعاينة والأدلة": "Inspection and evidence", "صور وفيديو حديثة بالتشغيل، ومستندات الصيانة، وتقرير معاينة من جهة فنية من اختيارك قبل أي التزام.": "Recent photos and videos of the machine running, maintenance records, and an inspection report from a technical party of your choice before any commitment.", "موافقتك الكتابية": "Your written approval", "تعتمد المواصفات والحالة والسعر النهائي كتابةً قبل التعاقد.": "You approve the specification, condition and final price in writing before contracting.", "التعاقد والدفع": "Contract and payment", "يُبرم العقد بين المستثمر والمورد مباشرة، ويدفع المستثمر للمورد بالطريقة المتفق عليها، ولا نستلم أموالًا.": "The contract is concluded directly between the investor and the supplier, and the investor pays the supplier by the agreed method. We do not receive funds.", "الشحن والتخليص": "Shipping and clearance", "نرتّب الشحن والتأمين والتخليص الجمركي عبر جهات مرخّصة.": "We arrange shipping, insurance and customs clearance through licensed parties.", "التسليم والتشغيل": "Delivery and commissioning", "استلام الموقع والتركيب والتشغيل التجريبي بحسب ما يتفق عليه مع المورد.": "Site delivery, installation and trial run as agreed with the supplier.", "ما تحصل عليه قبل أي التزام": "What you receive before any commitment", "عرض سعر مكتوب من المورد.": "A written quotation from the supplier.", "صور وفيديو حديثة، ويفضل فيديو بالتشغيل للمستعمل.": "Recent photos and video, preferably a running video for used equipment.", "بيانات الماكينة: الموديل وسنة الصنع وساعات التشغيل والرقم التسلسلي حيث ينطبق.": "Machine data: model, year of manufacture, operating hours and serial number where applicable.", "سجل الصيانة وتقرير معاينة، ذاتي أو من جهة فنية مستقلة.": "Maintenance record and an inspection report, in-house or from an independent technical party.", "تقدير لتكلفة الوصول: الشحن والجمارك والتركيب. تقدير غير ملزم.": "An estimate of landed cost: shipping, customs and installation. Non-binding.", "ما يجب أن تعرفه": "What you should know", "المستورد هو المستثمر المسجّل قانونيًا. نوضح لك المتطلبات العامة ولا نقدم استشارة قانونية.": "The importer is the legally registered investor. We explain general requirements and do not provide legal advice.", "الجمارك والرسوم والتراخيص والمواصفات تختلف بحسب الصنف، ونرجع فيها إلى مخلّص جمركي ومحامٍ.": "Customs, duties, licences and standards vary by item; we refer these to a customs broker and a lawyer.", "لا نضمن حالة المعدات المستعملة. المعاينة قبل الشراء هي الضمان الحقيقي لك.": "We do not guarantee the condition of used equipment. Inspection before purchase is your real protection.", "أجر الخدمة": "Service fee", "[يُحدَّد عند الاتفاق قبل أي طلب شراء]": "[Agreed before any purchase request]", "اطلب عرض استيراد": "Request an import quote", "أريد استيراد معدات": "I want to import equipment", "أريد استيراد": "I want to import", "المطلوب استيراده": "What to import", "مثال: خط تعبئة كامل، أو 20 ماكينة تغليف": "e.g. a complete filling line, or 20 sewing machines", "جديد أو مستعمل": "New or used", "جديد": "New", "مستعمل": "Used", "كلاهما": "Either", "الكمية": "Quantity", "بلد المنشأ المفضل": "Preferred origin", "لا أفضلية": "No preference", "الصين": "China", "تركيا": "Turkey", "أوروبا": "Europe", "موقع التركيب (المحافظة)": "Installation site (governorate)", "هل لديك سجل تجاري أو شركة مسجلة؟": "Do you have a commercial register or a registered company?", "نعم": "Yes", "لا": "No", "قيد التأسيس": "In setup", "ملاحظات أو مواصفات إضافية (اختياري)": "Notes or additional specifications (optional)", "الصور في واجهة الصفحة توضيحية لأنواع المنشآت والمعدات، ولا تمثل أصولًا معروضة للبيع.": "The photos at the top of the page are illustrative of the kinds of facilities and equipment and do not represent assets offered for sale.", "منشآت صناعية": "Industrial plants", "نقل ولوجستيات": "Transport and logistics", "صوامع وتخزين": "Silos and storage", "نواقل ومعدات مناولة": "Conveyors and handling", "ناقلات وصهاريج": "Tankers", "طلب استيراد": "Import request", "سنرد عليك بعد مراجعة المطلوب. لا نبدأ أي ترتيب شراء قبل اتفاق كتابي على أجر الخدمة.": "We will reply after reviewing the requirement. We start no purchase arrangement before a written agreement on the service fee.", "ماكينات، خطوط إنتاج، وفائض مصانع في مختلف القطاعات الصناعية. بتفويض مكتوب من المالك، وعمولة عند نجاح الصفقة فقط.": "Machinery, production lines and factory surplus across industrial sectors. Under the owner's written authorisation, with a commission only when the deal succeeds.", "ماكينة مفردة أو مجموعة، مثل ماكينات التصنيع والتعبئة والقص والتشطيب.": "A single machine or a group, such as manufacturing, packaging, cutting and finishing machines.", "غزل ونسيج": "Spinning and weaving", "صناعات غذائية": "Food industries", "كيماويات وبلاستيك": "Chemicals and plastics", "هندسية ومعدنية": "Engineering and metals", "مثال: 15 ماكينة تعبئة وتغليف مستعملة": "e.g. 15 used filling and packaging machines", "مثال: خط تعبئة كامل، أو 20 ماكينة تغليف": "e.g. a complete filling line, or 20 packaging machines", "الاتحاد الأوروبي": "European Union", "نبحث لك في أسواق الاتحاد الأوروبي، ومنها ألمانيا وإيطاليا وفرنسا، وكذلك في الصين وتركيا، بحسب نوع المعدة وميزانيتك.": "We search for you in European Union markets, including Germany, Italy and France, as well as China and Turkey, depending on the equipment type and your budget.", "قد تخضع بعض الأصناف لمعاملة جمركية تفضيلية بحسب بلد المنشأ والاتفاقيات السارية، ويتحقق منها المخلّص الجمركي.": "Some items may qualify for preferential customs treatment depending on the country of origin and the agreements in force; the customs broker verifies this.", "قيد التحديث": "Being updated", "نضيف الموردين وعروض الأسعار تباعًا بحسب كل طلب. سجّل طلبك الآن لنبدأ البحث لك فور استلامه.": "We add suppliers and quotations as each request comes in. Register your request now and we will start searching as soon as we receive it.", "جاري تحميل البيانات": "Loading data", "مصنع غزل للبيع": "Spinning mill for sale", "مصنع صناعات غذائية يطلب مستثمرًا شريكًا": "Food factory seeking an investor partner", "العاشر من رمضان": "10th of Ramadan City", "السادس من أكتوبر (المنطقة الصناعية)": "6th of October (industrial zone)", "جاري تحميل باقي البيانات: الطاقة والحالة ونطاق السعر. تُعرض بعد استكمال المراجعة.": "Remaining data is loading: capacity, condition and price range. It will be shown once the review is complete.", "جاري رفع البيانات وتحديد القيمة ونسب المشاركة. تُعلن بعد استكمالها.": "Data is being uploaded and the value and partnership shares are being determined. They will be announced once complete.", "أرغب في هذه الفرصة": "I'm interested in this opportunity", "فرص أخرى قيد الإضافة": "More opportunities being added", "نضيف فرصًا جديدة بعد كل تفويض. سجّل اهتمامك ونراسلك بما يناسب طلبك.": "We add new opportunities after each authorisation. Register your interest and we will write to you with what fits your request.", "سجّل لتصلك الفرص": "Register for updates", "لا نحتفظ بأموالك": "We never hold your money", "يدفع المستثمر للمورد مباشرة بالطريقة المتفق عليها، ولا نستلم أموالًا.": "The investor pays the supplier directly by the agreed method; we do not receive funds.", "٧": "7", "قيد التحديث.": "Being updated.", "أكمل الاسم والهاتف والمحافظة، وأكّد إمكانية إرسال الصور.": "Please complete name, phone and governorate, and confirm you can send photos.", "أكمل الاسم والهاتف وما تبحث عنه.": "Please complete name, phone and what you are looking for.", "تم نسخ الرسالة": "Message copied", "تعذر النسخ، انسخ النص يدويًا": "Copy failed, please copy the text manually", "وساطة بين أصحاب الأصول الصناعية والمشترين في مصر: ماكينات وخطوط إنتاج وفائض مصانع. بتفويض مكتوب وعمولة عند نجاح الصفقة فقط.": "Brokerage between industrial asset owners and buyers in Egypt: machinery, production lines and factory surplus. Written authorisation, commission only on success.", "طلب جديد: أريد بيع أصل": "x"};
+  var lang="ar";
+  function tr(s){return lang==="en"&&EN[s]?EN[s]:s}
+  function setBrand(){[].forEach.call(document.querySelectorAll(".brand"),function(e){e.textContent=lang==="en"?CFG.brandEn:CFG.brand})}
+  [].forEach.call(document.querySelectorAll("option"),function(o){if(!o.hasAttribute("value"))o.value=o.textContent});
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  var toastT;function toast(m){var t=$("toast");t.textContent=tr(m);t.classList.add("on");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("on")},2400)}
+  /* menu */
+  $("menu").addEventListener("click",function(){var o=$("nav").classList.toggle("on");this.setAttribute("aria-expanded",o)});
+  $("nav").addEventListener("click",function(e){if(e.target.tagName==="A"){$("nav").classList.remove("on");$("menu").setAttribute("aria-expanded","false")}});
+  /* hero rotation */
+  if(DATA.hero.length){[].forEach.call(document.querySelectorAll(".hero .slide"),function(s){s.remove()});var hh=document.querySelector(".hero .in");DATA.hero.forEach(function(h,i){var d=document.createElement("div");d.className="slide"+(i?"":" on");d.dataset.label=h.label||"";d.dataset.labelEn=h.labelEn||h.label||"";var im=document.createElement("img");im.src=h.src;im.alt="";if(i)im.loading="lazy";im.decoding="async";d.appendChild(im);hh.parentNode.insertBefore(d,hh)})}
+  var sl=[].slice.call(document.querySelectorAll(".hero .slide")),hi=0,dots=$("dots"),timer;
+  sl.forEach(function(s,i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-label",(i+1)+" / "+sl.length);if(!i)b.setAttribute("aria-current","true");b.addEventListener("click",function(){show(i);auto()});dots.appendChild(b)});
+  function show(i){hi=(i+sl.length)%sl.length;sl.forEach(function(s,k){s.classList.toggle("on",k===hi)});[].forEach.call(dots.children,function(b,k){if(k===hi)b.setAttribute("aria-current","true");else b.removeAttribute("aria-current")});var l=$("slideLabel");l.style.opacity=0;setTimeout(function(){l.textContent=lang==="en"?(sl[hi].dataset.labelEn||tr(sl[hi].dataset.label)):sl[hi].dataset.label;l.style.opacity=1},200)}
+  function auto(){clearInterval(timer);if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;timer=setInterval(function(){show(hi+1)},6000)}
+  auto();
+  /* real content blocks: render only when data exists */
+  if(DATA.listings.length){
+    var c=$("cards");
+    c.insertAdjacentHTML("afterbegin",DATA.listings.filter(function(x){return x.img}).map(function(x){return '<article class="card"><div class="ph"><img src="'+esc(x.img)+'" alt="'+esc(x.title)+'" loading="lazy"></div><div class="bd"><h3>'+esc(x.title)+'</h3><div class="meta"><span>'+esc(x.sector)+'</span><span>'+esc(x.gov)+'</span><span>'+esc(x.condition)+'</span>'+(x.age?'<span>'+esc(x.age)+'</span>':'')+(x.capacity?'<span>'+esc(x.capacity)+'</span>':'')+'</div><a class="btn alt" href="#register" data-pick="buyer" data-interest="'+esc(x.title)+'">أرغب في هذه الفرصة</a></div></article>'}).join(""));
+  }
+  if(DATA.stats.length){$("stats-sec").hidden=false;$("stats").innerHTML=DATA.stats.map(function(x){return '<div><b>'+esc(x.n)+'</b><span>'+esc(x.l)+'</span></div>'}).join("")}
+  if(DATA.quotes.length||DATA.logos.length){$("proof").hidden=false;$("quotes").innerHTML=DATA.quotes.map(function(x){return '<blockquote><p>'+esc(x.t)+'</p><cite>'+esc(x.by)+'</cite></blockquote>'}).join("");$("logos").innerHTML=DATA.logos.map(function(x){return '<img src="'+esc(x.src)+'" alt="'+esc(x.alt)+'" loading="lazy">'}).join("")}
+  /* tabs */
+  var tS=$("tabSeller"),tB=$("tabBuyer"),tI=$("tabImport"),fS=$("fSeller"),fB=$("fBuyer"),fI=$("fImport");
+  function pick(k){tS.setAttribute("aria-selected",k==="seller");tB.setAttribute("aria-selected",k==="buyer");tI.setAttribute("aria-selected",k==="import");fS.hidden=k!=="seller";fB.hidden=k!=="buyer";fI.hidden=k!=="import"}
+  tS.addEventListener("click",function(){pick("seller")});tB.addEventListener("click",function(){pick("buyer")});tI.addEventListener("click",function(){pick("import")});
+  document.addEventListener("click",function(e){var a=e.target.closest("[data-pick]");if(!a)return;pick(a.dataset.pick);
+    if(a.dataset.asset){if(a.dataset.pick==="seller")$("s_asset").value=a.dataset.asset;else $("b_interest").value=tr(a.dataset.asset)}
+    if(a.dataset.interest)$("b_interest").value=a.dataset.interest});
+  /* messages */
+  var LBL={name:"الاسم",company:"الشركة",phone:"الهاتف",role:"الصفة",assetType:"فئة الأصل",sector:"القطاع",governorate:"المحافظة",condition:"الحالة",age:"العمر",capacity:"الطاقة/العدد",dealType:"نوع الصفقة",priceBand:"نطاق السعر",lienFree:"وضع الأصل",notes:"ملاحظات",buyerType:"الصفة",interest:"المطلوب",region:"المنطقة",budget:"الميزانية",funding:"التمويل",timing:"التوقيت",registered:"سجل تجاري",state:"جديد/مستعمل",qty:"الكمية",origin:"بلد المنشأ",site:"موقع التركيب"};
+  function data(form){var o={},els=form.elements;for(var i=0;i<els.length;i++){var e=els[i];if(!e.name||e.name==="website")continue;o[e.name]=e.type==="checkbox"?e.checked:String(e.value||"").trim()}return o}
+  function valid(form,d,type){var er=form.querySelector(".err"),ok=d.name&&d.phone.replace(/\D/g,"").length>=7&&(type==="seller"?d.governorate&&d.photos:d.interest);er.hidden=!!ok;if(!ok)er.textContent=tr(type==="seller"?"أكمل الاسم والهاتف والمحافظة، وأكّد إمكانية إرسال الصور.":"أكمل الاسم والهاتف وما تبحث عنه.");return !!ok}
+  function build(d,type){var head=type==="seller"?"طلب جديد: أريد بيع أصل (عبر "+CFG.brand+")":type==="import"?"طلب جديد: أريد استيراد معدات (عبر "+CFG.brand+")":"طلب جديد: أبحث عن أصل (عبر "+CFG.brand+")";
+    return head+"\n"+Object.keys(d).filter(function(k){return k!=="photos"&&d[k]}).map(function(k){return (LBL[k]||k)+": "+d[k]}).join("\n")+(type==="seller"?"\nالصور: سأرسلها في المحادثة":"")+(lang==="en"?"\nلغة الزائر: English":"")}
+  function post(d,type){if(!CFG.webhook||d.website)return;try{var p={type:type,name:d.name,company:d.company,phone:d.phone,notes:d.notes};Object.keys(d).forEach(function(k){p[k]=d[k]});if(type==="import"){p={type:"buyer",name:d.name,company:d.company,phone:d.phone,buyerType:"طلب استيراد لحساب المستثمر",interest:[d.interest,d.state,d.qty,d.registered].filter(Boolean).join(" | "),region:[d.origin,d.site].filter(Boolean).join(" | "),budget:d.budget,funding:"",timing:d.timing,notes:d.notes}}fetch(CFG.webhook,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)}).catch(function(){})}catch(e){}}
+  function wire(form,type){
+    function go(via){var hp=form.querySelector(".hp").value;if(hp)return;var d=data(form);if(!valid(form,d,type))return;var m=build(d,type);post(d,type);
+      if(via==="wa")window.open("https://wa.me/"+CFG.wa+"?text="+encodeURIComponent(m),"_blank","noopener");
+      else if(via==="mail")location.href="mailto:"+CFG.email+"?subject="+encodeURIComponent(m.split("\n")[0])+"&body="+encodeURIComponent(m);
+      else{(navigator.clipboard?navigator.clipboard.writeText(m):Promise.reject()).then(function(){toast("تم نسخ الرسالة")}).catch(function(){toast("تعذر النسخ، انسخ النص يدويًا")})}}
+    form.addEventListener("submit",function(e){e.preventDefault();go("wa")});
+    [].forEach.call(form.querySelectorAll("[data-via]"),function(b){if(b.type!=="submit")b.addEventListener("click",function(){go(b.dataset.via)})});
+  }
+  wire(fS,"seller");wire(fB,"buyer");wire(fI,"import");
+  /* WhatsApp floating button */
+  $("fab").href="https://wa.me/"+CFG.wa+"?text="+encodeURIComponent("مرحبًا، أريد الاستفسار عن خدمة الوساطة");
+  /* bottom bar appears only after the hero (no duplicate buttons) */
+  var heroEl=document.querySelector(".hero");
+  if("IntersectionObserver" in window){new IntersectionObserver(function(en){$("sticky").classList.toggle("on",!en[0].isIntersecting)},{threshold:0.05}).observe(heroEl)}else{$("sticky").classList.add("on")}
+  /* language switch (Arabic / English) */
+  var ATTR=["placeholder","aria-label"];
+  function apply(l){
+    lang=l;var en=l==="en",de=document.documentElement;de.lang=l;de.dir=en?"ltr":"rtl";
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),n;
+    while((n=w.nextNode())){
+      if(n.__ar===undefined){var k=n.nodeValue.trim();if(k&&EN[k]){n.__ar=n.nodeValue;n.__en=n.nodeValue.replace(k,EN[k])}else n.__ar=null}
+      if(n.__ar!==null)n.nodeValue=en?n.__en:n.__ar;
+    }
+    [].forEach.call(document.querySelectorAll("[placeholder],[aria-label]"),function(e){ATTR.forEach(function(a){if(!e.hasAttribute(a))return;e.__a=e.__a||{};if(!(a in e.__a))e.__a[a]=e.getAttribute(a);var v=e.__a[a];e.setAttribute(a,en&&EN[v]?EN[v]:v)})});
+    document.title=tr("وساطة أصول صناعية في مصر");
+    var md=document.querySelector("meta[name=description]");if(md){md.__a=md.__a||md.content;md.content=en?(EN[md.__a]||md.__a):md.__a}
+    setBrand();
+    var lb=$("lang");lb.textContent=en?"عربي":"EN";lb.setAttribute("aria-label",en?"التبديل إلى العربية":"Switch to English");
+    show(hi);
+    try{localStorage.setItem("lang",l)}catch(e){}
+  }
+  $("lang").addEventListener("click",function(){apply(lang==="en"?"ar":"en")});
+  var init="ar";try{var q=location.search.match(/lang=(en|ar)/);init=q?q[1]:(localStorage.getItem("lang")||"ar")}catch(e){}
+  setBrand();if(init==="en")apply("en");
+})();
+</script>
+</body>
+</html>
