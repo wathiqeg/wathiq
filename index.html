@@ -865,6 +865,16 @@ var DATA={
   function paintSaved(){[].forEach.call(document.querySelectorAll("[data-save]"),function(b){b.setAttribute("aria-pressed",SAVED.indexOf(b.dataset.save)>-1)})}
   paintSaved();
   document.addEventListener("click",function(e){var b=e.target.closest("[data-save]");if(!b)return;var t=b.dataset.save,i=SAVED.indexOf(t);if(i>-1)SAVED.splice(i,1);else SAVED.push(t);try{localStorage.setItem("wq-saved",JSON.stringify(SAVED))}catch(x){}paintSaved();toast(i>-1?"أُزيلت من المحفوظة":"تم حفظ الأصل")});
+
+  /* funnel events: anonymous, once per page load, no personal data */
+  window.EVT=function(){};
+  (function(){try{if(localStorage.getItem("wq-owner")||!CFG.webhook||location.protocol==="file:"||/^(localhost|127\.)/.test(location.hostname))return;
+    var ua=navigator.userAgent,dv=/iPad|Tablet/i.test(ua)?"tablet":/Mobi|Android|iPhone/i.test(ua)?"mobile":"desktop",ap=/FBAN|FBAV|FB_IAB|Instagram|TikTok|musical_ly|Twitter|LinkedInApp/i.test(ua)?"in-app":"browser",done={};
+    window.EVT=function(n){if(done[n])return;done[n]=1;try{fetch(CFG.webhook,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"event",event:n,src:SRC,lang:lang,device:dv+" / "+ap})}).catch(function(){})}catch(e){}};
+    var rg=document.querySelector("#register h2");if(rg&&window.IntersectionObserver){var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){window.EVT("register_view");io.disconnect()}})},{threshold:.5});io.observe(rg)}
+    document.addEventListener("input",function(e){var f=e.target.closest&&e.target.closest("form");if(!f)return;if(/^(fSeller|fBuyer|fImport|fJoin)$/.test(f.id))window.EVT("form_start")},true);
+    document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var u=a.getAttribute("href")||"";if(/^tel:/.test(u))window.EVT("call_click");else if(/wa\.me/.test(u))window.EVT("wa_click")},true);
+  }catch(e){}})();
   /* client registration (no password account; one profile row per registration) */
   var fJ=$("fJoin");
   fJ.addEventListener("submit",function(e){e.preventDefault();if(fJ.querySelector(".hp").value)return;
