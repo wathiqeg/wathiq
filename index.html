@@ -682,12 +682,12 @@ html[lang="en"] .obox .nt.ar,html:not([lang="en"]) .obox .nt.en{display:none}
   <h2>من التفويض إلى إتمام الصفقة</h2>
   <p class="intro">قيمة الصفقة لا تتحدد بالسعر وحده، بل بسرعة الوصول إلى مشترٍ جاد، وسرّية العرض، ووضوح الشروط من البداية. لذلك نبدأ بتفويض مكتوب ثم نكشف المعلومات تدريجيًا.</p>
   <ol class="steps">
-    <li><details class="stp" open><summary><span class="n">١</span><h3>تفويض مكتوب</h3></summary><p>يوافق المالك على تفويض يحدد ما يجوز عرضه وبأي شروط. لا نشارك تفاصيل أي أصل مع المستثمرين بدونه، أما الطلب الجديد فيظهر في القائمة بحالة «قيد المراجعة» ببيانات عامة فقط.</p></details></li>
-    <li><details class="stp" open><summary><span class="n">٢</span><h3>عرض مجهول الهوية</h3></summary><p>نعرض الأصل بوصف عام وصور لا تدل على المالك أو العنوان.</p></details></li>
-    <li><details class="stp" open><summary><span class="n">٣</span><h3>تأهيل المستثمر</h3></summary><p>نراجع ما يطلبه المستثمر وميزانيته وتوقيته ومصدر تمويله قبل مشاركة أي تفاصيل إضافية.</p></details></li>
-    <li><details class="stp" open><summary><span class="n">٤</span><h3>سرية وعربون جدية</h3></summary><p>تُكشف البيانات الكاملة بعد اتفاق سرية وعربون جدية يُتفق عليهما كتابةً.</p></details></li>
-    <li><details class="stp" open><summary><span class="n">٥</span><h3>معاينة وتفاوض</h3></summary><p>يرتّب الطرفان المعاينة والتفاوض بتنسيقنا، وللمشتري أن يستعين بخبير فني من اختياره.</p></details></li>
-    <li><details class="stp" open><summary><span class="n">٦</span><h3>إتمام الصفقة</h3></summary><p>عند إتمام الصفقة تُستحق العمولة المتفق عليها في التفويض.</p></details></li>
+    <li><details class="stp"><summary><span class="n">١</span><h3>تفويض مكتوب</h3></summary><p>يوافق المالك على تفويض يحدد ما يجوز عرضه وبأي شروط. لا نشارك تفاصيل أي أصل مع المستثمرين بدونه، أما الطلب الجديد فيظهر في القائمة بحالة «قيد المراجعة» ببيانات عامة فقط.</p></details></li>
+    <li><details class="stp"><summary><span class="n">٢</span><h3>عرض مجهول الهوية</h3></summary><p>نعرض الأصل بوصف عام وصور لا تدل على المالك أو العنوان.</p></details></li>
+    <li><details class="stp"><summary><span class="n">٣</span><h3>تأهيل المستثمر</h3></summary><p>نراجع ما يطلبه المستثمر وميزانيته وتوقيته ومصدر تمويله قبل مشاركة أي تفاصيل إضافية.</p></details></li>
+    <li><details class="stp"><summary><span class="n">٤</span><h3>سرية وعربون جدية</h3></summary><p>تُكشف البيانات الكاملة بعد اتفاق سرية وعربون جدية يُتفق عليهما كتابةً.</p></details></li>
+    <li><details class="stp"><summary><span class="n">٥</span><h3>معاينة وتفاوض</h3></summary><p>يرتّب الطرفان المعاينة والتفاوض بتنسيقنا، وللمشتري أن يستعين بخبير فني من اختياره.</p></details></li>
+    <li><details class="stp"><summary><span class="n">٦</span><h3>إتمام الصفقة</h3></summary><p>عند إتمام الصفقة تُستحق العمولة المتفق عليها في التفويض.</p></details></li>
   </ol>
 </div></section>
 
@@ -1287,6 +1287,8 @@ var DATA={
   var init="ar";try{var q=location.search.match(/lang=(en|ar)/);init=q?q[1]:(localStorage.getItem("lang")||"ar")}catch(e){}
   [].forEach.call(document.querySelectorAll("#socLi,#socLi2"),function(li){if(CFG.linkedin){li.hidden=false;li.firstChild.href=CFG.linkedin}});
   setBrand();if(init==="en")apply("en");
+  function shut(){[].forEach.call(document.querySelectorAll("#how details,#joind"),function(x){x.open=false;x.removeAttribute("open")})}
+  shut();window.addEventListener("load",function(){shut();setTimeout(shut,0)});window.addEventListener("pageshow",shut);
   route();
 })();
 </script>
