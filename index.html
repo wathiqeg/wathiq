@@ -78,7 +78,8 @@ nav.main a:hover{color:var(--accent)}
 .hero .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
 .hero .slide.on{opacity:1}
 .hero .slide svg{width:100%;height:100%;object-fit:cover}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,20,.15) 0%,rgba(6,14,20,.35) 30%,rgba(6,14,20,.78) 55%,rgba(6,14,20,.92) 100%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,20,0) 0%,rgba(6,14,20,.14) 30%,rgba(6,14,20,.64) 55%,rgba(6,14,20,.80) 100%)}
+.hero .kicker,.hero h1,.hero p.lead,.hero .hlink{text-shadow:0 1px 3px rgba(4,10,16,.55),0 0 22px rgba(4,10,16,.45)}.hero .btn.light{background:rgba(6,14,20,.34)}
 .hero .in{position:absolute;inset:auto 0 0 0;z-index:2;padding-block:0 60px}
 .kicker{font-size:calc(15px*var(--k,1));font-weight:600;opacity:.95;display:flex;align-items:center;gap:10px}
 .kicker::before{content:"";width:32px;height:2px;background:var(--accent)}
@@ -559,11 +560,16 @@ html[lang="en"] .obox .nt.ar,html:not([lang="en"]) .obox .nt.en{display:none}
 </style>
 <script>/* text-zoom v1: Android in-app browsers (Facebook, Instagram, TikTok) multiply text by the phone font scale.
  Measure it with our own hosted font: width of a fixed 16px text vs its width with no zoom (254.80px, Linux Chromium).
- If the factor f > 1.12, set --k = 1.12/f so every font size (calc(Npx*var(--k,1))) returns close to the design, keeping +12% for the reader's setting. */
-(function(){var d=document,r=d.documentElement,T="وساطة أصول صناعية في مصر بوضوح وأمان",B=254.8;
+ If the factor f > 1.12, set --k = 1.12/f so every font size (calc(Npx*var(--k,1))) returns close to the design, keeping +12% for the reader's setting (in-app browsers: threshold f>1.03 and target 1.0 instead). ?tzdebug=1 shows f/k on screen. */
+(function(){var d=document,r=d.documentElement,T="وساطة أصول صناعية في مصر بوضوح وأمان",B=254.8,dbg=/[?&]tzdebug/.test(location.search);
  function go(){try{var e=d.createElement("span");e.style.cssText="position:absolute;left:-9999px;top:0;visibility:hidden;white-space:nowrap;letter-spacing:0;word-spacing:0;font-family:'IBM Plex Sans Arabic';font-weight:400;font-style:normal;font-size:16px";e.textContent=T;r.appendChild(e);var f=e.getBoundingClientRect().width/B;r.removeChild(e);if(!(f>0))return;r.setAttribute("data-tz",f.toFixed(2));
-  if(f>1.12){r.style.setProperty("--k",String(Math.floor(1.12/f*1e4)/1e4));r.style.setProperty("--tzf",f.toFixed(4));try{window.dispatchEvent(new Event("resize"))}catch(x){}}}catch(x){}}
- try{if(d.fonts&&d.fonts.load)d.fonts.load('16px "IBM Plex Sans Arabic"',T).then(function(l){if(l&&l.length)go()},function(){})}catch(x){}})();</script>
+  var ia=/(^|\s)inapp(\s|$)/.test(r.className),k=1;
+  if(f>(ia?1.03:1.12)){k=Math.max(.6,Math.floor((ia?1:1.12)/f*1e4)/1e4);r.style.setProperty("--k",String(k));r.style.setProperty("--tzf",f.toFixed(4));try{window.dispatchEvent(new Event("resize"))}catch(x){}}
+  if(dbg){var b=d.getElementById("tzdbg");if(!b){b=d.createElement("div");b.id="tzdbg";b.style.cssText="position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#000;color:#0f0;font:12px/1.5 monospace;padding:6px 8px;direction:ltr;text-align:left;white-space:pre-wrap";r.appendChild(b)}
+   b.textContent="tz f="+f.toFixed(3)+" k="+k+" inapp="+ia+" w="+innerWidth+" dpr="+devicePixelRatio+" v=121"}}catch(x){}}
+ try{if(d.fonts&&d.fonts.load)d.fonts.load('16px "IBM Plex Sans Arabic"',T).then(function(l){if(l&&l.length)go()},function(){});
+  if(d.fonts&&d.fonts.ready)d.fonts.ready.then(function(){try{if(d.fonts.check('16px "IBM Plex Sans Arabic"',T))go()}catch(x){}});
+  addEventListener("load",function(){try{if(d.fonts&&d.fonts.check('16px "IBM Plex Sans Arabic"',T))go()}catch(x){}})}catch(x){}})();</script>
 </head>
 <body>
 <noscript><p style="margin:0;padding:12px 16px;background:#0f1f29;color:#fff;font:calc(15px*var(--k,1))/1.7 system-ui,sans-serif;text-align:center">تعمل هذه الصفحة بأفضل صورة مع تفعيل JavaScript. للتواصل المباشر: واتساب 01551802066 · البريد wathiq.eg@gmail.com</p></noscript>
@@ -1083,10 +1089,10 @@ var DATA={
   window.EVT=function(){};
   (function(){try{if(localStorage.getItem("wq-owner")||!CFG.webhook||location.protocol==="file:"||/^(localhost|127\.)/.test(location.hostname))return;
     var ua=navigator.userAgent,dv=/iPad|Tablet/i.test(ua)?"tablet":/Mobi|Android|iPhone/i.test(ua)?"mobile":"desktop",ap=/FBAN|FBAV|FB_IAB|Instagram|TikTok|musical_ly|Twitter|LinkedInApp/i.test(ua)?"in-app":"browser",done={};
-    window.EVT=function(n){if(done[n])return;done[n]=1;try{fetch(CFG.webhook,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"event",event:n,src:SRC,lang:lang,device:dv+" / "+ap})}).catch(function(){})}catch(e){}};
+    window.EVT=function(n,rf){rf=/^S-\d{4}-[A-Z0-9]{4}$/.test(rf||"")?rf:"";var k=rf?n+"|"+rf:n;if(done[k])return;done[k]=1;if(rf){try{if(sessionStorage.getItem("wq-ev-"+k))return;sessionStorage.setItem("wq-ev-"+k,"1")}catch(e){}}try{fetch(CFG.webhook,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"event",event:n,src:SRC,lang:lang,device:dv+" / "+ap,ref:rf})}).catch(function(){})}catch(e){}};
     var rg=document.querySelector("#register h2");if(rg&&window.IntersectionObserver){var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){window.EVT("register_view");io.disconnect()}})},{threshold:.5});io.observe(rg)}
     document.addEventListener("input",function(e){var f=e.target.closest&&e.target.closest("form");if(!f)return;if(/^(fSeller|fBuyer|fImport|fJoin)$/.test(f.id))window.EVT("form_start")},true);
-    document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var u=a.getAttribute("href")||"";if(/^tel:/.test(u))window.EVT("call_click");else if(/wa\.me/.test(u))window.EVT("wa_click")},true);
+    document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var u=a.getAttribute("href")||"";if(/^tel:/.test(u))window.EVT("call_click");else if(/wa\.me/.test(u))window.EVT("wa_click",(/[#&]opp=(S-\d{4}-[A-Z0-9]{4})/.exec(location.hash)||[])[1])},true);
   }catch(e){}})();
   /* client registration (no password account; one profile row per registration) */
   var fJ=$("fJoin");
@@ -1228,7 +1234,7 @@ var DATA={
     host.innerHTML='<div class="od">'+backLink(x)+'<div class="og"><div class="omedia">'+media+'</div><div class="oside"><div class="obad">'+(inRev(x)?'<span class="badge">قيد المراجعة</span>':'<span class="badge ok">معروض</span>')+(ex?'<span class="badge ex">'+(tk?'تنازل عن أصل مقسّط':'فرصة تخارج')+'</span>':'')+'<span class="oref"><span>رقم الملف</span> <bdi dir="ltr">'+esc(x.ref)+'</bdi></span></div><h1 id="oTitle" tabindex="-1">'+esc(cat)+'</h1>'+(F&&F.ask&&F.ask[0]?'<div class="opr"><span>'+(tk?'ثمن التنازل (المطلوب الآن بحسب المالك)':'السعر المطلوب بحسب المالك')+'</span><b>'+pr(F.ask)+'</b></div>':'')+'<dl class="okf">'+rows+'</dl><div class="octa"><a class="btn"'+reg+'>سجّل اهتمامك بهذا الأصل</a><a class="btn wa"'+wa+' href="#"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M9.2 8.6c0 3.3 2.9 6.2 6.2 6.2l1.1-1.5-2.1-1-.9.7c-.9-.4-1.9-1.4-2.3-2.3l.7-.9-1-2.1z" fill="currentColor" stroke="none"/></svg>اسأل عبر واتساب</a><div class="oact">'+sv.replace('<button','<button class="osv"')+'<button type="button" id="oCopy">نسخ رابط الملف</button></div></div><p class="osm">لا يظهر اسم المالك ولا موقعه الدقيق، ونشارك التفاصيل الإضافية بحسب مستويات الكشف.</p></div></div>'+nb+'<div class="oc2">'+fin+crit+'</div>'+steps+'<p class="olegal">ظهور الأصل هنا لا يعني التحقق من الأصل، والبيانات المعروضة من إفادة المالك وتُراجَع عند المعاينة.</p></div>';
     $("ostk").innerHTML='<a class="btn"'+reg+'>سجّل اهتمامك</a><a class="btn wa"'+wa+' href="#"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.5-1.2A9 9 0 1 0 12 3z"/><path d="M9.2 8.6c0 3.3 2.9 6.2 6.2 6.2l1.1-1.5-2.1-1-.9.7c-.9-.4-1.9-1.4-2.3-2.3l.7-.9-1-2.1z" fill="currentColor" stroke="none"/></svg>واتساب</a>';
     OPPTITLE=cat;setCap(1);if(lang==="en")apply("en");oppWa();paintSaved();
-    if(first){var h=$("oTitle");if(h)try{h.focus({preventScroll:true})}catch(e){}if(window.EVT)window.EVT("opp_view")}}
+    if(first){var h=$("oTitle");if(h)try{h.focus({preventScroll:true})}catch(e){}}if(window.EVT)window.EVT("opp_view",ref)}
   function route(){var r=oppRef(),b=document.body,on=b.classList.contains("onopp");
     if(r){if(!on){OPPY=window.scrollY;b.classList.add("onopp");$("opp").hidden=false;window.scrollTo({top:0,behavior:"instant"})}OPPREF=r;renderOpp(!on||r!==OPPREF)}
     else if(on){b.classList.remove("onopp");$("opp").hidden=true;OPPREF="";OPPTITLE="";document.title=tr("وثيق | وساطة أصول صناعية في مصر");var id=decodeURIComponent(location.hash.slice(1)),el=id&&document.getElementById(id);if(el)el.scrollIntoView({behavior:"instant"});else window.scrollTo({top:OPPY,behavior:"instant"})}}
