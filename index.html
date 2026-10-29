@@ -566,7 +566,7 @@ html[lang="en"] .obox .nt.ar,html:not([lang="en"]) .obox .nt.en{display:none}
   var ia=/(^|\s)inapp(\s|$)/.test(r.className),k=1;
   if(f>(ia?1.03:1.12)){k=Math.max(.6,Math.floor((ia?1:1.12)/f*1e4)/1e4);r.style.setProperty("--k",String(k));r.style.setProperty("--tzf",f.toFixed(4));try{window.dispatchEvent(new Event("resize"))}catch(x){}}
   if(dbg){var b=d.getElementById("tzdbg");if(!b){b=d.createElement("div");b.id="tzdbg";b.style.cssText="position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#000;color:#0f0;font:12px/1.5 monospace;padding:6px 8px;direction:ltr;text-align:left;white-space:pre-wrap";r.appendChild(b)}
-   b.textContent="tz f="+f.toFixed(3)+" k="+k+" inapp="+ia+" w="+innerWidth+" dpr="+devicePixelRatio+" v=122"}}catch(x){}}
+   b.textContent="tz f="+f.toFixed(3)+" k="+k+" inapp="+ia+" w="+innerWidth+" dpr="+devicePixelRatio+" v=124"}}catch(x){}}
  try{if(d.fonts&&d.fonts.load)d.fonts.load('16px "IBM Plex Sans Arabic"',T).then(function(l){if(l&&l.length)go()},function(){});
   if(d.fonts&&d.fonts.ready)d.fonts.ready.then(function(){try{if(d.fonts.check('16px "IBM Plex Sans Arabic"',T))go()}catch(x){}});
   addEventListener("load",function(){try{if(d.fonts&&d.fonts.check('16px "IBM Plex Sans Arabic"',T))go()}catch(x){}})}catch(x){}})();</script>
@@ -1170,8 +1170,9 @@ var DATA={
   function okTh(t){return /^data:image\/jpeg;base64,[A-Za-z0-9+\/=]{20,6000}$/.test(t||"")}
   function noteList(t,cls,lab){if(typeof t!=="string"||!t||t.length>460)return "";var L=t.split("\n").slice(0,4).filter(function(l){return l.trim()});return L.length?'<ul class="nt '+cls+'" dir="auto">'+L.map(function(l){return '<li>'+esc(l.slice(0,140))+'</li>'}).join("")+(lab?'<li class="mtl">'+lab+'</li>':"")+'</ul>':""}
   function shownCat(x){if(x&&x.cat==="مصنع أو شراكة"){if(x.deal==="شراكة")return "شراكة في مصنع";if(x.deal)return x.cond==="يعمل"?"مصنع قائم":"مصنع"}return x.cat}
-  var PV={"S-2610-GXUR":1},CAPS={"S-2610-GXUR":{3:"نماذج من كتالوج النشاط",4:"نماذج من كتالوج النشاط"}};function capOf(ref,i){var c=CAPS[ref];return c&&c[i]?c[i]:""}
-  function setCap(i){var e=$("oCap");if(!e)return;var t=capOf(OPPREF,i);e.hidden=!t;e.textContent=t?tr(t):"";e.setAttribute("data-k",t)}function inRev(x){return !!(x&&PV[x.ref])}
+  /* v124: the sheet controls these (Authorization -> rv badge, CatalogPhotos -> cp); PV/CAPS stay only as manual overrides */
+  var PV={},CAPS={};function capOf(ref,i){var c=CAPS[ref];if(c&&c[i])return c[i];var x=null;(FEED||[]).forEach(function(f){if(f.ref===ref)x=f});return x&&x.cp&&x.cp.indexOf(i)>-1?"نماذج من كتالوج النشاط":""}
+  function setCap(i){var e=$("oCap");if(!e)return;var t=capOf(OPPREF,i);e.hidden=!t;e.textContent=t?tr(t):"";e.setAttribute("data-k",t)}function inRev(x){return !!(x&&(PV[x.ref]||x.rv))}
   function noteHtml(x){var ar=x.note,en=x.noteEn||x.note;return noteList(ar,"ar",x.mt==="ar"?"ترجمة آلية":"")+noteList(en,"en",x.mt==="en"?"Machine translation":"")}
   function feedCard(x){var cat=esc(shownCat(x)),ref=esc(x.ref),sv='<button type="button" class="save" data-save="'+esc(shownCat(x)+" ("+x.ref+")")+'" aria-pressed="false">'+BM+'<span class="s0">حفظ الأصل</span><span class="s1">تم الحفظ</span></button>';
     var pn='<p class="pnote"><span>رقم الطلب</span> <bdi dir="ltr">'+ref+'</bdi></p>';
