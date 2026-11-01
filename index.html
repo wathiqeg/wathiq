@@ -630,7 +630,7 @@ html[lang="en"] .obox .nt.ar,html:not([lang="en"]) .obox .nt.en{display:none}
   var ia=/(^|\s)inapp(\s|$)/.test(r.className),k=1;
   if(f>(ia?1.03:1.12)){k=Math.max(.6,Math.floor((ia?1:1.12)/f*1e4)/1e4);r.style.setProperty("--k",String(k));r.style.setProperty("--tzf",f.toFixed(4));try{window.dispatchEvent(new Event("resize"))}catch(x){}}
   if(dbg){var b=d.getElementById("tzdbg");if(!b){b=d.createElement("div");b.id="tzdbg";b.style.cssText="position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#000;color:#0f0;font:12px/1.5 monospace;padding:6px 8px;direction:ltr;text-align:left;white-space:pre-wrap";r.appendChild(b)}
-   b.textContent="tz f="+f.toFixed(3)+" k="+k+" inapp="+ia+" w="+innerWidth+" dpr="+devicePixelRatio+" v=135"}}catch(x){}}
+   b.textContent="tz f="+f.toFixed(3)+" k="+k+" inapp="+ia+" w="+innerWidth+" dpr="+devicePixelRatio+" v=136"}}catch(x){}}
  try{if(d.fonts&&d.fonts.load)d.fonts.load('16px "IBM Plex Sans Arabic"',T).then(function(l){if(l&&l.length)go()},function(){});
   if(d.fonts&&d.fonts.ready)d.fonts.ready.then(function(){try{if(d.fonts.check('16px "IBM Plex Sans Arabic"',T))go()}catch(x){}});
   addEventListener("load",function(){try{if(d.fonts&&d.fonts.check('16px "IBM Plex Sans Arabic"',T))go()}catch(x){}})}catch(x){}})();</script>
@@ -1276,11 +1276,14 @@ var DATA={
   /* v134: for a factory/business file, full ownership describes the assets, not shares (no ownership percentages are ever shown) */
   function ownTxt(x){var o=x&&OWNSH[x.own]?x.own:"";if(!o)return "";return o==="مملوك بالكامل"?"الأصول مملوكة للنشاط":OWNSH[o]}
   function bi(a,e){return '<span class="fa">'+esc(a)+'</span><span class="fe">'+esc(e||a)+'</span>'}
-  /* v135: one facts order and labels for every file (card shows the first 3; file page and PDF up to 6). Other labels are not shown. */
-  var FORD=["التخصص","الوضع النظامي","الحالة التشغيلية","المساحة والمقر","المعدات والخطوط","نطاق البيع"],
-    FEN={"التخصص":"Specialty","الوضع النظامي":"Legal status","الحالة التشغيلية":"Operating status","المساحة والمقر":"Area and premises","المعدات والخطوط":"Equipment and lines","نطاق البيع":"Sale scope"};
-  function factsOf(x){var by={};(x.facts||[]).forEach(function(f){if(f&&f[0]&&f[1]){var k=String(f[0]).replace(/\s+/g," ").trim();if(FORD.indexOf(k)>-1&&!by[k])by[k]=f}});
-    return FORD.filter(function(k){return by[k]}).map(function(k){var f=by[k];return [k,f[1],FEN[k],f[3]||f[1]]})}
+  /* v136: one facts order for every file: the 8 fixed labels first, then any other label the owner writes, in sheet order.
+     A repeated label keeps its first line; empty lines and labels without a value are skipped. English uses FEN, else the Arabic label.
+     Card shows the first 3; file page and PDF up to 8. Lines are never cut (they wrap). */
+  var FORD=["التخصص","الوضع النظامي","الحالة التشغيلية","المساحة والمقر","المعدات والخطوط","نطاق البيع","المستندات المتاحة","سبب البيع"],
+    FEN={"التخصص":"Specialty","الوضع النظامي":"Legal status","الحالة التشغيلية":"Operating status","المساحة والمقر":"Area and premises","المعدات والخطوط":"Equipment and lines","نطاق البيع":"Sale scope","المستندات المتاحة":"Documents available","سبب البيع":"Reason for sale"};
+  function factsOf(x){var by={},extra=[];(x.facts||[]).forEach(function(f){if(!f)return;var k=String(f[0]||"").replace(/\s+/g," ").trim(),v=String(f[1]||"").trim();
+      if(!k||!v||by[k])return;by[k]=f;if(FORD.indexOf(k)<0)extra.push(k)});
+    return FORD.filter(function(k){return by[k]}).concat(extra).map(function(k){var f=by[k];return [k,String(f[1]).trim(),FEN[k]||k,String(f[3]||f[1]).trim()]})}
   function pr(a){return a&&a[0]?bi(a[0],a[1]):''}
   function kfRows(x,n){return factsOf(x).slice(0,n).map(function(f){return '<li><span>'+bi(f[0],f[2])+'</span><b>'+bi(f[1],f[3])+'</b></li>'}).join("")}
   function oppRef(){var m=location.hash.match(/^#opp=([SB]-\d{4}-[A-Z0-9]{4})$/);return m?m[1]:""}
@@ -1298,7 +1301,7 @@ var DATA={
     var media='<div class="omain'+(ids.length||th?'':' ph0')+'">'+(ids.length?'<img id="oMain" src="https://drive.google.com/thumbnail?id='+ids[0]+'&sz=w1200" alt="" width="800" height="600" decoding="async" referrerpolicy="no-referrer"><span class="mn" id="oCap" hidden></span>':th?'<img class="oblur" src="'+th+'" alt=""><span class="mn">صورة مموّهة للخصوصية</span>':'<svg class="big" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 40V22l9-5v5l9-5v5l9-5v5l9-5v23z"/><path d="M20 40v-9h8v9"/></svg><span class="mn">الصور قيد الإضافة</span>')+'</div>'
       +(ids.length>1?'<div class="oth" role="group" aria-label="صور الأصل">'+ids.map(function(id,k){return '<button type="button" data-oi="'+id+'" aria-label="عرض الصورة '+(k+1)+'" aria-current="'+(k===0)+'"><img src="https://drive.google.com/thumbnail?id='+id+'&sz=w240" alt="" width="96" height="72" loading="lazy" referrerpolicy="no-referrer"></button>'}).join("")+'</div>':'');
     function dr(l,v){return v?'<div><dt>'+l+'</dt><dd>'+v+'</dd></div>':''}
-    var rows=dr('القطاع',esc(x.sec))+dr('المحافظة',esc(x.gv||x.gov))+dr('المدينة أو المنطقة الصناعية',x.gv?esc(x.gov):'')+dr('الموقع التنظيمي',x.fz?'داخل منطقة حرة':'')+dr('نوع الصفقة',esc(x.deal))+dr('حالة الأصل',esc(x.cond))+dr('الملكية',own?ownTxt(x):"")+factsOf(x).slice(0,6).map(function(f){return '<div><dt>'+bi(f[0],f[2])+'</dt><dd>'+bi(f[1],f[3])+'</dd></div>'}).join("");
+    var rows=dr('القطاع',esc(x.sec))+dr('المحافظة',esc(x.gv||x.gov))+dr('المدينة أو المنطقة الصناعية',x.gv?esc(x.gov):'')+dr('الموقع التنظيمي',x.fz?'داخل منطقة حرة':'')+dr('نوع الصفقة',esc(x.deal))+dr('حالة الأصل',esc(x.cond))+dr('الملكية',own?ownTxt(x):"")+factsOf(x).slice(0,8).map(function(f){return '<div><dt>'+bi(f[0],f[2])+'</dt><dd>'+bi(f[1],f[3])+'</dd></div>'}).join("");
     var wa=' data-wa="'+esc(x.ref)+'" data-cat="'+esc(cat)+'" data-sec="'+esc(x.sec||"")+'" data-gov="'+esc(x.gv||x.gov||"")+'" data-deal="'+esc(x.deal||"")+'" data-cond="'+esc(x.cond||"")+'" target="_blank" rel="noopener"',reg=' href="#register" data-pick="buyer" data-asset="'+esc(x.cat)+'" data-interest="'+esc(shownCat(x)+" - "+x.ref)+'"';
     var fm=own==="مملوك بالكامل"?"الأصول مملوكة للنشاط. نراجع مستندات الملكية قبل أي قرار.":own==="مقسّط (لم يُسدد بالكامل)"?"الأصل لم يُسدد بالكامل بعد.":own==="تأجير تمويلي"?"الأصل بتأجير تمويلي.":"لم يحدد المالك طريقة ملكية الأصل بعد. نوضحها لك قبل أي التزام.";
     var F=x.fin||null,inst=own==="مقسّط (لم يُسدد بالكامل)"||own==="تأجير تمويلي"||tk;
@@ -1325,7 +1328,7 @@ var DATA={
   function briefBtn(){return document.documentElement.classList.contains("inapp")?'<button type="button" class="btn alt obr-ia" data-openbr>لحفظ الملف PDF للدراسة افتح في المتصفح</button>':'<button type="button" class="btn alt obr" data-brief><span>ملف الصفقة للدراسة</span><small>PDF</small></button>'}
   function renderRev(x,first){var host=$("oppBody"),cat=shownCat(x),ref=x.ref;
     function dr(l,v){return v?'<div><dt>'+l+'</dt><dd>'+v+'</dd></div>':''}
-    var rows=dr('القطاع',esc(x.sec))+dr('المحافظة',esc(x.gv||x.gov))+dr('نوع الصفقة',esc(x.deal))+dr('حالة الأصل',esc(x.cond))+factsOf(x).slice(0,6).map(function(f){return '<div><dt>'+bi(f[0],f[2])+'</dt><dd>'+bi(f[1],f[3])+'</dd></div>'}).join("");
+    var rows=dr('القطاع',esc(x.sec))+dr('المحافظة',esc(x.gv||x.gov))+dr('نوع الصفقة',esc(x.deal))+dr('حالة الأصل',esc(x.cond))+factsOf(x).slice(0,8).map(function(f){return '<div><dt>'+bi(f[0],f[2])+'</dt><dd>'+bi(f[1],f[3])+'</dd></div>'}).join("");
     var wa=' data-wa="'+esc(ref)+'" data-rv="1" data-cat="'+esc(cat)+'" data-sec="'+esc(x.sec||"")+'" data-gov="'+esc(x.gv||x.gov||"")+'" data-deal="'+esc(x.deal||"")+'" data-cond="'+esc(x.cond||"")+'" target="_blank" rel="noopener"';
     var sv='<button type="button" class="osv" data-save="'+esc(cat+" ("+ref+")")+'" aria-pressed="false"><span class="s0">حفظ الأصل</span><span class="s1">تم الحفظ</span></button>';
     var note=noteHtml(x,6),nb=note?'<div class="obox"><h2>نبذة عن الأصل</h2>'+note+'</div>':"";
@@ -1343,7 +1346,7 @@ var DATA={
     if(!rv)g+=c(T('المدينة أو المنطقة الصناعية'),x.gv?t(x.gov):'')+c(T('الموقع التنظيمي'),x.fz?t('داخل منطقة حرة'):'');
     g+=c(T('نوع الصفقة'),t(x.deal))+c(T('حالة الأصل'),t(x.cond));
     if(!rv)g+=c(T('الملكية'),own?t(ownTxt(x)):'');
-    g+=factsOf(x).slice(0,6).map(function(f){return c(bi(f[0],f[2]),bi(f[1],f[3]))}).join("");
+    g+=factsOf(x).slice(0,8).map(function(f){return c(bi(f[0],f[2]),bi(f[1],f[3]))}).join("");
     var m="";
     if(!rv){var P=[[tk?'ثمن التنازل (المطلوب الآن)':'السعر المطلوب',F&&F.ask],[tk?'مرجع السعر (مثيل الأصل في السوق)':'مرجع السعر',F&&F.ref],['المسدد حتى الآن',F&&F.paid],['المتبقي',F&&F.rem],['قيمة القسط ومدته',F&&F.inst],['إجمالي التكلفة على المشتري',F&&F.tot]];
       P.forEach(function(r){if(r[1]&&r[1][0])g+=c(T(r[0]),pr(r[1]))});if(F&&F.fo)g+=c(T('موافقة الجهة الممولة على نقل الأصل'),t(F.fo));
@@ -1376,14 +1379,14 @@ var DATA={
     setTimeout(function(){document.removeEventListener("visibilitychange",vh);if(!gone&&!document.hidden){if(cp===null)copyLink(u,say);else say(cp)}},1600);
     try{location.href="intent://"+u.replace(/^https?:\/\//,"")+"#Intent;scheme=https;package=com.android.chrome;end"}catch(e){}}
   document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-openbr]");if(b){e.preventDefault();openBr()}});
-  /* v134: one page always. Measure the document off screen at the narrowest/shortest printable area of A4 and Letter
-     (182 x 251 mm with 14 mm margins, minus the footer space); if it overflows, tighten spacing, then shrink evenly (not below 80%). */
+  /* v136: one A4 page always. Measure the document off screen on the printable A4 area (182 x 269 mm, minus the footer space);
+     if it overflows, tighten spacing, then shrink type and spacing evenly in 2% steps until it fits. Nothing is cut. */
   function dbFit(){var h=$("printHost"),db=h&&h.querySelector(".db"),tb=db&&db.querySelector(".db-tb tbody");if(!tb)return;
-    var MM=96/25.4,avail=(251.4-15-3)*MM,st=h.style.cssText;db.style.zoom="";
+    var MM=96/25.4,avail=(297-28-15-3)*MM,st=h.style.cssText;db.style.zoom="";
     h.style.cssText="display:block!important;position:absolute;left:-10000px;top:0;width:182mm;visibility:hidden";
     function need(){return tb.getBoundingClientRect().height}
     try{if(need()>avail)db.classList.add("db-tight");var z=1,n=need();
-      while(n>avail&&z>0.8){z=Math.max(0.8,Math.floor(Math.min(z-0.01,z*avail/n)*100)/100);db.style.zoom=z;n=need()}
+      while(n>avail&&z>0.6){z=Math.max(0.6,Math.round((z-0.02)*100)/100);db.style.zoom=z;n=need()}
       db.setAttribute("data-fit",z)}catch(e){}
     h.style.cssText=st}
   function briefPrint(){var x=OPPX;if(!x)return;if(window.EVT)window.EVT("pdf_save",x.ref,shownCat(x));phBuild(briefHtml(x));dbFit();PHB=1;phGo()}
