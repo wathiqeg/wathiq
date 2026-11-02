@@ -1,3 +1,4 @@
 Wathiq | wanted-card pictures
 Drawings (drum-separator, rotary-dryer, roll-wrapper, cheese-line, tortilla-line, generic): original line art made for Wathiq. No third-party rights.
 Photos (photo-*.webp): added only from sources whose licence allows this use; one line per photo below: date | key | source URL | licence | credit line.
+2026-11-02 | photo-cheese-line, photo-drum-separator, photo-rotary-dryer, photo-tortilla-line, photo-lock-line, photo-roll-wrapper | supplied by the site owner (Ahmed Ashour), who stated they are open-licensed; source URLs not recorded | owner-stated open licence | manufacturer marks removed; shown as illustrative images only
