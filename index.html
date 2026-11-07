@@ -717,6 +717,23 @@ header.bar.sc{box-shadow:0 4px 14px rgba(8,18,26,.10)}
 .hero .slide img{transform-origin:50% 45%}
 .hero .slide.on img{animation:wqkb 7s ease-out forwards}
 @media (prefers-reduced-motion:reduce){.hero .slide.on img{animation:none}}
+
+/* v177: over the hero the top bar turns transparent (photo shows behind it), light text and outlines, a soft top shade for legibility; it becomes solid again past the hero, on file pages and when the menu is open */
+header.bar{transition:background .3s ease,border-color .3s ease,box-shadow .25s}
+html.hov header.bar{background:transparent;border-bottom-color:transparent;box-shadow:none}
+html.hov header.bar .logo,html.hov header.bar .logo .brand{color:#fff;text-shadow:0 1px 3px rgba(4,10,16,.6),0 0 14px rgba(4,10,16,.45)}
+html.hov header.bar .logo .tag{color:rgba(255,255,255,.88);text-shadow:0 1px 3px rgba(4,10,16,.6)}
+html.hov header.bar .logo .mk{filter:drop-shadow(0 0 1px rgba(255,255,255,.55))}
+html.hov header.bar .lang,html.hov header.bar .menu{color:#fff;border-color:rgba(255,255,255,.6);background:rgba(6,14,20,.18)}
+@media (min-width:961px){html.hov nav.main a{color:#fff;text-shadow:0 1px 3px rgba(4,10,16,.5)}html.hov nav.main a:hover{color:#e0a050}html.hov header.bar .btn{background:#fff;color:#0f1f29;border-color:#fff}}
+:root{--hh:59px}.inapp{--hh:51px}
+.hero{margin-top:calc(-1 * var(--hh))}
+.hero .in{padding-top:calc(var(--hh) + 40px)}
+.hero::before{content:"";position:absolute;inset:0 0 auto 0;height:calc(var(--hh) + 96px);z-index:1;pointer-events:none;opacity:0;transition:opacity .3s;background:linear-gradient(180deg,rgba(6,14,20,.66) 0%,rgba(6,14,20,.4) 45%,rgba(6,14,20,0) 100%)}
+html.hov .hero::before{opacity:1}
+@media (max-width:700px){.hero,.inapp .hero{min-height:max(100vh,600px);min-height:max(100svh,600px)}}
+@media (min-width:701px){.hero{min-height:min(calc(86vh + var(--hh)),100vh,820px);min-height:min(calc(86svh + var(--hh)),100svh,820px)}}
+@media (prefers-reduced-motion:reduce){header.bar{transition:none}}
 </style>
 <script>/* text-zoom v1: Android in-app browsers (Facebook, Instagram, TikTok) multiply text by the phone font scale.
  Measure it with our own hosted font: width of a fixed 16px text vs its width with no zoom (254.80px, Linux Chromium).
@@ -730,6 +747,7 @@ header.bar.sc{box-shadow:0 4px 14px rgba(8,18,26,.10)}
  try{if(d.fonts&&d.fonts.load)d.fonts.load('16px "IBM Plex Sans Arabic"',T).then(function(l){if(l&&l.length)go()},function(){});
   if(d.fonts&&d.fonts.ready)d.fonts.ready.then(function(){try{if(d.fonts.check('16px "IBM Plex Sans Arabic"',T))go()}catch(x){}});
   addEventListener("load",function(){try{if(d.fonts&&d.fonts.check('16px "IBM Plex Sans Arabic"',T))go()}catch(x){}})}catch(x){}})();</script>
+<script>if(!/#opp=/.test(location.hash))document.documentElement.classList.add("hov")</script>
 </head>
 <body>
 <noscript><p style="margin:0;padding:12px 16px;background:#0f1f29;color:#fff;font:calc(15px*var(--k,1))/1.7 system-ui,sans-serif;text-align:center">تعمل هذه الصفحة بأفضل صورة مع تفعيل JavaScript. للتواصل المباشر: واتساب 01551802066 · البريد wathiq.eg@gmail.com</p></noscript>
@@ -1758,6 +1776,18 @@ function shut(){[].forEach.call(document.querySelectorAll("#how details,#joind")
     setTimeout(function(){var bar=document.querySelector("header.bar"),off=(bar&&getComputedStyle(bar).position==="sticky"?bar.offsetHeight:0)+10;
       window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+window.pageYOffset-off),behavior:"smooth"})},30)
   });
+})();
+</script>
+<script>
+/* v177: transparent top bar while the hero is under it */
+(function(){
+  var de=document.documentElement,bar=document.querySelector("header.bar"),hero=document.querySelector(".hero"),nav=document.getElementById("nav");if(!bar||!hero)return;
+  function hh(){de.style.setProperty("--hh",bar.offsetHeight+"px")}
+  function upd(){var over=!document.body.classList.contains("onopp")&&!(nav&&nav.classList.contains("on"))&&!hero.hidden&&hero.offsetParent!==null&&(window.pageYOffset||0)<hero.offsetHeight-bar.offsetHeight-8;de.classList.toggle("hov",over)}
+  hh();upd();
+  window.addEventListener("scroll",upd,{passive:true});window.addEventListener("resize",function(){hh();upd()});window.addEventListener("hashchange",function(){setTimeout(upd,60)});
+  document.addEventListener("click",function(){setTimeout(upd,30)});
+  if("MutationObserver" in window){new MutationObserver(upd).observe(document.body,{attributes:true,attributeFilter:["class"]});if(nav)new MutationObserver(upd).observe(nav,{attributes:true,attributeFilter:["class"]})}
 })();
 </script>
 </body>
