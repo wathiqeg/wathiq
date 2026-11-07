@@ -712,7 +712,7 @@ header.bar.sc{box-shadow:0 4px 14px rgba(8,18,26,.10)}
 /* v175: lighter hero — on phones a two-line title, one short line instead of the paragraph, links moved out; glass path buttons; slow gentle zoom that starts from the sharp, unscaled photo */
 .hero .hshort{display:none}
 .path{background:rgba(6,14,20,.30);-webkit-backdrop-filter:blur(10px) saturate(1.15);backdrop-filter:blur(10px) saturate(1.15);border-color:rgba(255,255,255,.9)}
-@media (max-width:700px){.hero h1 .hx,.hero p.lead,.hero .hlink{display:none}.hero .hshort{display:block;margin:0 0 4px;font:600 calc(15px*var(--k,1))/1.6 var(--f-body);color:#fff;opacity:.92;text-shadow:0 1px 3px rgba(4,10,16,.6),0 0 18px rgba(4,10,16,.45)}}
+@media (max-width:700px){.hero,.inapp .hero{min-height:max(calc(100vh - 58px),600px);min-height:max(calc(100svh - 58px),600px)}.hero h1 .hx,.hero p.lead{display:none}.hero .hlink{margin-top:10px}.hero .hshort{display:block;margin:0 0 4px;font:600 calc(15px*var(--k,1))/1.6 var(--f-body);color:#fff;opacity:.92;text-shadow:0 1px 3px rgba(4,10,16,.6),0 0 18px rgba(4,10,16,.45)}}
 @keyframes wqkb{from{transform:scale(1)}to{transform:scale(1.035)}}
 .hero .slide img{transform-origin:50% 45%}
 .hero .slide.on img{animation:wqkb 7s ease-out forwards}
