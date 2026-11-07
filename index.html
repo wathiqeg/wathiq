@@ -698,13 +698,13 @@ html[dir="ltr"] .path:hover .pa,html[dir="ltr"] .path:focus-visible .pa{transfor
 @media (max-width:400px){html[lang="en"] .kicker{flex-wrap:wrap;row-gap:4px}html[lang="en"] .kicker .kr{white-space:normal}html[lang="en"] .hero h1{font-size:calc(27px*var(--k,1));line-height:1.3}html[lang="en"] .hero .in{padding-top:56px}}
 
 /* v169: calm motion — sections ease in once while scrolling, a press feedback on buttons, a light shadow under the header after scrolling (all off with reduced motion) */
-.rv{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.7,.2,1)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
 .btn,.path{transition:background .2s,color .2s,border-color .2s,transform .12s}
-.btn:active,.path:active{transform:scale(.98)}
+.btn:active,.path:active{transform:scale(.97);filter:brightness(.92)}
 header.bar{transition:box-shadow .25s}
 header.bar.sc{box-shadow:0 4px 14px rgba(8,18,26,.10)}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.btn:active,.path:active{transform:none}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.btn:active,.path:active{transform:none;filter:none}}
 </style>
 <script>/* text-zoom v1: Android in-app browsers (Facebook, Instagram, TikTok) multiply text by the phone font scale.
  Measure it with our own hosted font: width of a fixed 16px text vs its width with no zoom (254.80px, Linux Chromium).
@@ -1712,12 +1712,32 @@ function shut(){[].forEach.call(document.querySelectorAll("#how details,#joind")
   if(bar){var f=function(){bar.classList.toggle("sc",(window.scrollY||document.documentElement.scrollTop)>8)};window.addEventListener("scroll",f,{passive:true});f()}
   if(!("IntersectionObserver" in window)||navigator.webdriver)return;
   try{if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return}catch(e){}
-  var els=[].slice.call(document.querySelectorAll("section.s .eyebrow,section.s h2,section.s .intro,.tile,.steps li,#faq details"));
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -8% 0px"});
-  els.forEach(function(el){if(el.closest(".hero")||el.closest("[hidden]")||(el.parentNode&&el.parentNode.closest&&el.parentNode.closest("details")))return;var r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)return;
-    var sib=el.parentNode?[].indexOf.call(el.parentNode.children,el):0;el.style.transitionDelay=Math.min(sib,4)*60+"ms";el.classList.add("rv");io.observe(el)});
+  var SEL="section.s .eyebrow,section.s h2,section.s .intro,.tile,.steps li,#faq details,#cards>.card,#wcards>.card";
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -6% 0px"});
+  function prep(el){if(el.classList.contains("rv")||el.closest(".hero")||el.closest("[hidden]")||(el.parentNode&&el.parentNode.closest&&el.parentNode.closest("details")))return;var r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)return;
+    var sib=el.parentNode?[].indexOf.call(el.parentNode.children,el):0;el.style.transitionDelay=(sib%3)*90+"ms";el.classList.add("rv");io.observe(el)}
+  [].forEach.call(document.querySelectorAll(SEL),prep);
+  /* cards arrive later from the live list: prepare them as they are added */
+  ["cards","wcards"].forEach(function(id){var h=document.getElementById(id);if(h&&"MutationObserver" in window)new MutationObserver(function(){[].forEach.call(h.children,function(c){if(c.classList.contains("card"))prep(c)})}).observe(h,{childList:true})});
   window.addEventListener("hashchange",function(){setTimeout(function(){[].forEach.call(document.querySelectorAll(".rv:not(.in)"),function(el){var r=el.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)el.classList.add("in")})},350)});
   window.addEventListener("beforeprint",function(){[].forEach.call(document.querySelectorAll(".rv"),function(el){el.classList.add("in")})});
+})();
+</script>
+<script>
+/* v170: in-page links glide smoothly to their section (browser-native smooth scroll, header-aware) instead of jumping; file pages (#opp=) and reduced motion keep the instant jump */
+(function(){
+  var reduce=false;try{reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){}
+  if(reduce||!("scrollBehavior" in document.documentElement.style))return;
+  document.addEventListener("click",function(e){
+    if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+    var h=a.getAttribute("href");if(!h||h==="#"||/^#opp=/.test(h))return;
+    var t=document.getElementById(decodeURIComponent(h.slice(1)));if(!t||t.hidden)return;
+    e.preventDefault();
+    if(location.hash!==h){try{history.pushState(null,"",h)}catch(x){location.hash=h;return}try{window.dispatchEvent(new HashChangeEvent("hashchange"))}catch(x){}}
+    setTimeout(function(){var bar=document.querySelector("header.bar"),off=(bar&&getComputedStyle(bar).position==="sticky"?bar.offsetHeight:0)+10;
+      window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+window.pageYOffset-off),behavior:"smooth"})},30)
+  });
 })();
 </script>
 </body>
