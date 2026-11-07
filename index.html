@@ -1387,7 +1387,7 @@ var DATA={
   var BM='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 3h10v14l-5-3.5L5 17z"/></svg>';
   function okId(t){return /^[A-Za-z0-9_-]{20,80}$/.test(t||"")}
   /* v171: edited copies hosted on the site replace specific Drive photos (unwanted objects or brand text removed); same photo everywhere: hero, card, file page, viewer */
-  var POVR={"1WHNuvR_DooBoBLdC8V166MZ3waw75P7o":"assets/p/gxur-2.jpg"};
+  var POVR={"1WHNuvR_DooBoBLdC8V166MZ3waw75P7o":"assets/p/gxur-2.jpg","1yPgEdciLPbx5A_lwKXATi8DYRaucw_N4":"assets/p/pvc1-1.jpg","1C-onfv-rQEsuVeU45JFIwzh7ZygkOFg3":"assets/p/pvc1-2.jpg","1Ea3UusKKEypoxqcljk_MFHfSKEzLGJlo":"assets/p/pvc1-3.jpg","1rFJNOUcESoIIrncU6yH6UuquNF0CBRLP":"assets/p/pvc1-4.jpg"};
   function idUrl(id,w){return POVR[id]||"https://drive.google.com/thumbnail?id="+id+"&sz=w"+w}
   window.WQIMG=idUrl;
   document.addEventListener("error",function(e){var t=e.target;if(t&&t.tagName==="IMG"&&t.getAttribute("data-fb")){var fb=t.getAttribute("data-fb"),ad=t.closest(".ad"),fa=t.getAttribute("data-fbalt");t.removeAttribute("data-fb");t.src=fb;if(fa){t.removeAttribute("data-fbalt");if(t.__a)t.__a.alt=fa;t.alt=lang==="en"&&EN[fa]?EN[fa]:fa}if(ad){ad.classList.remove("real");var bx=ad.parentNode;if(bx)bx.dispatchEvent(new Event("adsync"))}return}if(!t||t.tagName!=="IMG"||!t.classList.contains("cl"))return;var g=t.parentNode,p=g.parentNode,th=t.getAttribute("data-th");t.remove();
