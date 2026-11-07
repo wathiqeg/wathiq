@@ -537,7 +537,7 @@ details.joind{margin:0!important;border:0!important;padding:0}
 .joind>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;column-gap:18px;align-items:center;padding:6px 0}
 .joind>summary::-webkit-details-marker{display:none}.joind>summary::marker{content:""}
 .joind>summary h2{font-size:calc(clamp(20px,2.3vw,28px)*var(--k,1));margin:0;max-width:none;grid-column:1}
-.joind>summary .intro{margin:4px 0 0;font-size:calc(15px*var(--k,1));max-width:none;grid-column:1;font-family:var(--f-body);font-weight:400;color:#dfe5ea;opacity:1}
+.joind>summary .intro{margin:4px 0 0;font-size:calc(15px*var(--k,1));max-width:none;grid-column:1;font-family:var(--f-body);font-weight:400;color:inherit;opacity:.88}
 .joind>summary::after{content:"";grid-column:2;grid-row:1/span 2;width:14px;height:14px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg);transition:transform .2s;margin-inline-end:6px;position:static;font-size:0;opacity:1}
 .joind[open]>summary::after{transform:rotate(-135deg)}
 .joind[open]>summary{margin-bottom:22px}
@@ -654,6 +654,9 @@ section.s.wsec[hidden]{display:none}
 .wcards .card.wnt .bd>.btn{margin-top:auto;min-height:48px;min-width:120px;width:100%;background:var(--wc);border-color:var(--wc);color:var(--wc-fg)}
 .omain.wil{aspect-ratio:16/10;background:#0f1f29}
 @media (max-width:560px){section.s.wsec{padding-block:40px;margin-top:48px}.wsec .cards.wcards{gap:16px}.wcards .card.wnt .bd{padding:16px}.wcards .card.wnt h3{font-size:calc(19px*var(--k,1))}}
+/* فصل بصري بين بانر #join ونموذج #register: لون أخف قليلًا وخط رفيع، بلا تغيير في المسافات */
+#register{background:#263441;background:color-mix(in srgb,var(--brand) 90%,var(--brand-fg));border-top:1px solid rgba(244,245,246,.25);border-top:1px solid color-mix(in srgb,var(--brand-fg) 25%,transparent)}
+@media (prefers-color-scheme:dark){#register{background:#d4d8db;background:color-mix(in srgb,var(--brand) 90%,var(--brand-fg));border-top:1px solid rgba(11,18,24,.25);border-top:1px solid color-mix(in srgb,var(--brand-fg) 25%,transparent)}}
 </style>
 <script>/* text-zoom v1: Android in-app browsers (Facebook, Instagram, TikTok) multiply text by the phone font scale.
  Measure it with our own hosted font: width of a fixed 16px text vs its width with no zoom (254.80px, Linux Chromium).
