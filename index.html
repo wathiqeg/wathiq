@@ -654,12 +654,21 @@ section.s.wsec[hidden]{display:none}
 .wcards .card.wnt .bd>.btn{margin-top:auto;min-height:48px;min-width:120px;width:100%;background:var(--wc);border-color:var(--wc);color:var(--wc-fg)}
 .omain.wil{aspect-ratio:16/10;background:#0f1f29}
 @media (max-width:560px){section.s.wsec{padding-block:40px;margin-top:48px}.wsec .cards.wcards{gap:16px}.wcards .card.wnt .bd{padding:16px}.wcards .card.wnt h3{font-size:calc(19px*var(--k,1))}}
-/* لافتة «سجّل لتصلك»: درجة رملية فاتحة مميّزة، تفصلها عن الشريط الداكن بعدها وعن نموذج الطلب */
-.rfq.join{--brand:#f3ead9;--brand-fg:#0f1f29;--accent:#8f5510;border-block:1px solid #e3d6bb}
-.rfq.join .err{color:#8a3d00}
+/* v160: لافتة «سجّل لتصلك» بطاقة بألوان الصفحة (سطح أبيض/داكن بحسب الوضع) وإطار عنبري جانبي وزر ظاهر */
+.rfq.join{background:var(--bg);color:var(--ink);--brand:var(--surface);--brand-fg:var(--ink);margin-top:0!important;padding-block:28px!important}
+.rfq.join details.joind{background:var(--surface);border:1px solid var(--line)!important;border-inline-start:4px solid var(--accent)!important;padding:20px 22px}
+.rfq.join .joind>summary{grid-template-columns:1fr auto;row-gap:0}
+.rfq.join .joind>summary::after{display:none}
+.rfq.join .joind[open]>summary::after{display:block;grid-row:1;align-self:start;margin-top:8px}
+.rfq.join .jbtn{grid-column:1/-1;justify-self:start;margin-top:16px;pointer-events:none}
+.rfq.join .joind[open]>summary .jbtn{display:none}
+.rfq.join .joind[open]>summary{margin-bottom:18px}
+.rfq.join .joind>summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.rfq.join .fine{color:var(--muted);opacity:1}
+.rfq.join .err{color:#b3261e}
 .rfq.join select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' fill='none' stroke='%238f5510' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
-.joind>summary:focus-visible{outline-color:#8f5510}
-.rfq.join .fine{color:var(--brand-fg);opacity:.75}
+@media (prefers-color-scheme:dark){.rfq.join .err{color:#ffb36b}.rfq.join select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' fill='none' stroke='%23e0a050' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}.rfq.join select option{color:#0f1f29;background:#fff}}
+@media (max-width:700px){.rfq.join details.joind{padding:18px 16px}}
 </style>
 <script>/* text-zoom v1: Android in-app browsers (Facebook, Instagram, TikTok) multiply text by the phone font scale.
  Measure it with our own hosted font: width of a fixed 16px text vs its width with no zoom (254.80px, Linux Chromium).
@@ -791,7 +800,7 @@ section.s.wsec[hidden]{display:none}
 
 
 <section class="rfq join" id="join"><div class="wrap">
-  <details class="joind" id="joind"><summary><h2>سجّل لتصلك الأصول المطروحة</h2><p class="intro">سجّل اهتمامك مرة واحدة، ونراسلك حين يتوفر أصل يناسب ما تبحث عنه. التسجيل مجاني ولا يلزمك بأي شيء.</p></summary>
+  <details class="joind" id="joind"><summary><h2>سجّل لتصلك الأصول المطروحة</h2><p class="intro">سجّل اهتمامك مرة واحدة، ونراسلك حين يتوفر أصل يناسب ما تبحث عنه. التسجيل مجاني ولا يلزمك بأي شيء.</p><span class="btn jbtn" aria-hidden="true">سجّل اهتمامك</span></summary>
   <form id="fJoin" novalidate>
     <label>الاسم<input name="name" autocomplete="name" required></label>
     <label>رقم الهاتف<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label>
